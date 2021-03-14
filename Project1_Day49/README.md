@@ -10,6 +10,6 @@ Project 1 Modded for Day 49 is one of the 3 challenges to attempt on Day 49 of P
 
 ## 📸 Screenshots:
 
-![main.png](screenshots/main.npg)
-![detail.png](screenshots/detail.npg)
+![main.png](screenshots/main.png)
+![detail.png](screenshots/detail.png)
 
