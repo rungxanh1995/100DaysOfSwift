@@ -79,7 +79,7 @@
                             <constraint firstItem="8Rz-7J-DQd" firstAttribute="leading" secondItem="Rcn-G2-0t5" secondAttribute="leading" id="b9T-Ek-8d1"/>
                             <constraint firstItem="Rcn-G2-0t5" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iyu-aB-pNa"/>
                             <constraint firstItem="8Rz-7J-DQd" firstAttribute="top" secondItem="n8Z-Mb-96x" secondAttribute="bottom" constant="34" id="jQ8-yh-kcc"/>
-                            <constraint firstItem="aqv-lg-a47" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rcn-G2-0t5" secondAttribute="trailing" constant="200" id="m5O-sg-a51"/>
+                            <constraint firstItem="aqv-lg-a47" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rcn-G2-0t5" secondAttribute="trailing" constant="100" id="m5O-sg-a51"/>
                             <constraint firstItem="n8Z-Mb-96x" firstAttribute="trailing" secondItem="PiG-1y-So4" secondAttribute="trailing" id="mUC-Vw-a8Z"/>
                             <constraint firstItem="n8Z-Mb-96x" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="tBH-LD-Hhs"/>
                             <constraint firstItem="n8Z-Mb-96x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uhv-Kv-3Qj"/>
@@ -88,6 +88,7 @@
                     <navigationItem key="navigationItem" id="3Po-Jb-SU6"/>
                     <connections>
                         <outlet property="backgroundView" destination="n8Z-Mb-96x" id="A8v-eh-V2f"/>
+                        <outlet property="changeFilterLabel" destination="Rcn-G2-0t5" id="bFv-wO-ngm"/>
                         <outlet property="imageView" destination="66n-5Z-Mlk" id="nbq-KT-Vlf"/>
                         <outlet property="intensitySlider" destination="PiG-1y-So4" id="Czu-6r-yOo"/>
                     </connections>

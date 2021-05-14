@@ -12,6 +12,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate & UINavi
 	@IBOutlet var backgroundView: UIView!
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var intensitySlider: UISlider!
+	@IBOutlet var changeFilterLabel: UIButton! // challenge 2
 	private var currentImage: UIImage!
 	private var context: CIContext!
 	private var currentFilter: CIFilter!
@@ -64,7 +65,16 @@ extension ViewController {
 	}
 	
 	@IBAction func save(_ sender: Any) {
-		guard let image = imageView.image else { return }
+		guard let image = imageView.image else {
+			// challenge 1
+			let ac = UIAlertController(title: AlertContext.noSourceImage.title,
+									   message: AlertContext.noSourceImage.message,
+									   preferredStyle: .alert)
+			ac.addAction(UIAlertAction(title: "OK",
+									   style: .default))
+			present(ac, animated: true)
+			return
+		}
 		UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
 	}
 	
@@ -120,6 +130,7 @@ extension ViewController {
 		guard currentImage != nil else { return }
 		guard let filterName = action.title else { return }
 		currentFilter = CIFilter(name: filterName) // update current filter with chosen filter name
+		changeFilterLabel.setTitle("Filter: \(filterName)", for: .normal) // challenge 2
 		processFilteringOnImage()
 	}
 }

@@ -34,8 +34,11 @@ struct AlertContext {
 	static let cancelAction		= AlertItem(title: "Cancel")
 	
 	static let imageSavingError	= AlertItem(title: "Saving Error")
+	// challenge 1
+	static let noSourceImage	= AlertItem(title: "No Source Image",
+											message: "Add an image to edit and save")
 	static let imageSaved		= AlertItem(title: "Saved",
-											 message: "Edited image is saved to Photo Library")
+											message: "Edited image is saved to Photo Library")
 }
 
 extension ViewController {
