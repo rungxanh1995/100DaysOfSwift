@@ -8,15 +8,18 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    private var gameScore: SKLabelNode!
+    private var gameScoreNode: SKLabelNode!
     private var score = 0 {
-        didSet { gameScore.text = "Score: \(score)"}
+        didSet { gameScoreNode.text = "Score: \(score)"}
     }
 	private var numRounds = 0
 	private var maxNumRound = 30
     private var slots = [WhackSlot]()
     private var popupTime = 0.85
 	private let gameOverSound = "gameOver.caf" // challenge 1
+	static let gameOverLabel = "gameOverLabel"
+	static let finalScoreLabel = "finalScoreLabel"
+	static let newGameLabel = "newGameLabel"
     
     override func didMove(to view: SKView) {
         setUpGameBackground()
@@ -32,6 +35,10 @@ class GameScene: SKScene {
 		let location = touch.location(in: self)
 		let tappedNodes = nodes(at: location)
 		for node in tappedNodes {
+			if node.name == Self.newGameLabel {
+				startNewGame()
+				return
+			}
 			guard let whackSlot = node.parent?.parent as? WhackSlot else { continue }
 				// as a whackslot is 2 level deep from a tapped node
 			if !whackSlot.isVisible	{ continue }
@@ -60,12 +67,12 @@ extension GameScene {
     }
     
     private func setUpGameScoreLabel() {
-        gameScore = SKLabelNode(fontNamed: "Chalkduster")
-        gameScore.fontSize = 48
-        gameScore.text = "Score: 0"
-        gameScore.position = CGPoint(x: 8, y: 8)
-        gameScore.horizontalAlignmentMode = .left
-        addChild(gameScore)
+        gameScoreNode = SKLabelNode(fontNamed: "Chalkduster")
+        gameScoreNode.fontSize = 48
+        gameScoreNode.text = "Score: 0"
+        gameScoreNode.position = CGPoint(x: 8, y: 8)
+        gameScoreNode.horizontalAlignmentMode = .left
+        addChild(gameScoreNode)
     }
     
     fileprivate func createSlot(at position: CGPoint) {
@@ -85,6 +92,7 @@ extension GameScene {
 	fileprivate func createGameOverLabel() {
 		// stop popping up penguins when game ends
 		let gameOverNode = SKSpriteNode(imageNamed: "gameOver")
+		gameOverNode.name = Self.gameOverLabel
 		gameOverNode.position = CGPoint(x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
 										y: CGFloat(view?.bounds.midY ?? (768 / 2)))
 		gameOverNode.zPosition = 1
@@ -95,19 +103,51 @@ extension GameScene {
 		}
 	}
 	
+	// self challenge: start new game
+	fileprivate func createNewGameLabel() {
+		let newGameNode = SKLabelNode(fontNamed: "Chalkduster")
+		newGameNode.text = "NEW GAME"
+		newGameNode.zPosition = 1
+		newGameNode.position = CGPoint(
+			x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
+			y: CGFloat(view?.bounds.midY ?? (768 / 2)) - 160
+		)
+		newGameNode.horizontalAlignmentMode = .center
+		newGameNode.fontSize = 36
+		newGameNode.name = Self.newGameLabel
+		addChild(newGameNode)
+	}
+	
+	fileprivate func startNewGame() {
+		for child in self.children {
+			if child.name == Self.newGameLabel ||
+				child.name == Self.gameOverLabel ||
+				child.name == Self.finalScoreLabel {
+				self.removeChildren(in: [child])
+			}
+		}
+		score = 0
+		numRounds = 0
+		popupTime = 0.85
+		self.addChild(gameScoreNode)
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+			self?.createPenguins()
+		}
+	}
+	
 	// challenge 2
 	fileprivate func createFinalScoreLabel() {
-		let finalScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-		finalScoreLabel.text = "Final Score: \(score)"
-		finalScoreLabel.zPosition = 1
-		finalScoreLabel.position = CGPoint(
+		let finalScoreNode = SKLabelNode(fontNamed: "Chalkduster")
+		finalScoreNode.text = "Final Score: \(score)"
+		finalScoreNode.zPosition = 1
+		finalScoreNode.position = CGPoint(
 			x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
 			y: CGFloat(view?.bounds.midY ?? (768 / 2)) - 80
 		)
-		finalScoreLabel.horizontalAlignmentMode = .center
-		finalScoreLabel.fontSize = 48
-		finalScoreLabel.name = "finalScoreLabel"
-		addChild(finalScoreLabel)
+		finalScoreNode.horizontalAlignmentMode = .center
+		finalScoreNode.fontSize = 48
+		finalScoreNode.name = Self.finalScoreLabel
+		addChild(finalScoreNode)
 	}
 	
 	private func createPenguins() {
@@ -134,7 +174,8 @@ extension GameScene {
 			for slot in slots { slot.hide() }
 			createGameOverLabel()
 			createFinalScoreLabel() // challenge 2
-			gameScore.removeFromParent()
+			createNewGameLabel()
+			gameScoreNode.removeFromParent()
 			return
 		}
     }
