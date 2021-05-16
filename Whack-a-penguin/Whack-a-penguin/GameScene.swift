@@ -82,7 +82,20 @@ extension GameScene {
         for i in 0..<4 { createSlot(at: CGPoint(x: 180 + (i * 170), y: 140)) } // bottom row
     }
     
-    private func createBadPenguin() {
+	fileprivate func createGameOverLabel() {
+		// stop popping up penguins when game ends
+		let gameOverNode = SKSpriteNode(imageNamed: "gameOver")
+		gameOverNode.position = CGPoint(x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
+										y: CGFloat(view?.bounds.midY ?? (768 / 2)))
+		gameOverNode.zPosition = 1
+		addChild(gameOverNode)
+		// challenge 1
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+			self?.run(SKAction.playSoundFileNamed((self?.gameOverSound)! , waitForCompletion: false))
+		}
+	}
+	
+	private func createBadPenguin() {
 		if numRounds < maxNumRound {
 			numRounds += 1
 			popupTime *= 0.99 	// decreasing popup time of a bad penguin
@@ -103,16 +116,8 @@ extension GameScene {
 				self?.createBadPenguin()
 			}
 		} else {
-			for slot in slots { slot.hide() } // stop popping up penguins when game ends
-			let gameOverNode = SKSpriteNode(imageNamed: "gameOver")
-			gameOverNode.position = CGPoint(x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
-											y: CGFloat(view?.bounds.midY ?? (768 / 2)))
-			gameOverNode.zPosition = 1
-			addChild(gameOverNode)
-			// challenge 1
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-				self?.run(SKAction.playSoundFileNamed((self?.gameOverSound)! , waitForCompletion: false))
-			}
+			for slot in slots { slot.hide() }
+			createGameOverLabel()
 			return
 		}
     }
