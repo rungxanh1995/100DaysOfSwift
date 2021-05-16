@@ -134,6 +134,7 @@ extension GameScene {
 			for slot in slots { slot.hide() }
 			createGameOverLabel()
 			createFinalScoreLabel() // challenge 2
+			gameScore.removeFromParent()
 			return
 		}
     }
