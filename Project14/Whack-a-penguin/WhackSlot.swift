@@ -24,9 +24,9 @@ class WhackSlot: SKNode {
         let holeNode = SKSpriteNode(imageNamed: "whackHole")
         addChild(holeNode)
         
-        penguinNode = SKSpriteNode(imageNamed: "penguinGood")
+        penguinNode = SKSpriteNode(imageNamed: Self.goodPenguinName)
         penguinNode.position = CGPoint(x: 0, y: -90)
-        penguinNode.name = "penguinGood"
+		penguinNode.name = Self.goodPenguinName
         
         let cropNode = SKCropNode()
         cropNode.position = CGPoint(x: 0, y: 15)

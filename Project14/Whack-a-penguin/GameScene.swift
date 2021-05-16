@@ -23,7 +23,7 @@ class GameScene: SKScene {
         setUpGameScoreLabel()
         setUpRowsOfSlots()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.createBadPenguin()
+            self?.createPenguins()
         }
     }
     
@@ -110,7 +110,7 @@ extension GameScene {
 		addChild(finalScoreLabel)
 	}
 	
-	private func createBadPenguin() {
+	private func createPenguins() {
 		if numRounds < maxNumRound {
 			numRounds += 1
 			popupTime *= 0.99 	// decreasing popup time of a bad penguin
@@ -128,7 +128,7 @@ extension GameScene {
 			let maxDelay = popupTime * 2.0
 			let delay = Double.random(in: minDelay...maxDelay)
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-				self?.createBadPenguin()
+				self?.createPenguins()
 			}
 		} else {
 			for slot in slots { slot.hide() }
