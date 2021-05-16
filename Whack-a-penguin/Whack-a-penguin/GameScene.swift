@@ -12,6 +12,8 @@ class GameScene: SKScene {
     private var score = 0 {
         didSet { gameScore.text = "Score: \(score)"}
     }
+	private var numRounds = 0
+	private var maxNumRound = 30
     private var slots = [WhackSlot]()
     private var popupTime = 0.85
     
@@ -25,7 +27,24 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+		guard let touch = touches.first else { return }
+		let location = touch.location(in: self)
+		let tappedNodes = nodes(at: location)
+		for node in tappedNodes {
+			guard let whackSlot = node.parent?.parent as? WhackSlot else { continue }
+				// as a whackslot is 2 level deep from a tapped node
+			if !whackSlot.isVisible	{ continue }
+			if whackSlot.isHit		{ continue }
+			whackSlot.hit()
+			
+			if node.name == WhackSlot.goodPenguinName {
+				score -= 5
+				run(SKAction.playSoundFileNamed(WhackSlot.whackSound, waitForCompletion: false))
+			} else if node.name == WhackSlot.badPenguinName {
+				score += 1
+				run(SKAction.playSoundFileNamed(WhackSlot.whackBadSound, waitForCompletion: false))
+			}
+		}
     }
 }
 
@@ -63,22 +82,33 @@ extension GameScene {
     }
     
     private func createBadPenguin() {
-        popupTime *= 0.99 	// decreasing popup time of a bad penguin
-        slots.shuffle()		// shuffle order of slots in slot list
-        slots[0].show(hideTime: popupTime) // 1st bad penguin pop up
-        
-        // randomize a number to create more bad penguins
-        if Int.random(in: 0...12) > 4  { slots[1].show(hideTime: popupTime) } // 2nd bad penguin pop up
-        if Int.random(in: 0...12) > 8  { slots[2].show(hideTime: popupTime) } // 3rd bad penguin pop up
-        if Int.random(in: 0...12) > 10 { slots[3].show(hideTime: popupTime) } // 4th bad penguin pop up
-        if Int.random(in: 0...12) > 11 { slots[4].show(hideTime: popupTime) } // 5th bad penguin pop up
-        
-		// self call function again after a delay
-        let minDelay = popupTime * 0.5
-        let maxDelay = popupTime * 2.0
-        let delay	 = Double.random(in: minDelay...maxDelay)
-		DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-			self?.createBadPenguin()
+		if numRounds < maxNumRound {
+			numRounds += 1
+			popupTime *= 0.99 	// decreasing popup time of a bad penguin
+			slots.shuffle()		// shuffle order of slots in slot list
+			slots[0].show(hideTime: popupTime) // 1st bad penguin pop up
+			
+			// randomize a number to create more bad penguins
+			if Int.random(in: 0...12) > 4  { slots[1].show(hideTime: popupTime) } // 2nd bad penguin pop up
+			if Int.random(in: 0...12) > 8  { slots[2].show(hideTime: popupTime) } // 3rd bad penguin pop up
+			if Int.random(in: 0...12) > 10 { slots[3].show(hideTime: popupTime) } // 4th bad penguin pop up
+			if Int.random(in: 0...12) > 11 { slots[4].show(hideTime: popupTime) } // 5th bad penguin pop up
+			
+			// self call function again after a delay
+			let minDelay = popupTime * 0.5
+			let maxDelay = popupTime * 2.0
+			let delay = Double.random(in: minDelay...maxDelay)
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+				self?.createBadPenguin()
+			}
+		} else {
+			for slot in slots { slot.hide() } // stop popping up penguins when game ends
+			let gameOverNode = SKSpriteNode(imageNamed: "gameOver")
+			gameOverNode.position = CGPoint(x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
+											y: CGFloat(view?.bounds.midY ?? (768 / 2)))
+			gameOverNode.zPosition = 1
+			addChild(gameOverNode)
+			return
 		}
     }
 }
