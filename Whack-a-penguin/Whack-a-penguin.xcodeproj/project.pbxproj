@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1527F5265193DA00B4D9FD /* gameOver.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2C1527F4265193DA00B4D9FD /* gameOver.caf */; };
 		2C57C5D726509B2F0035F901 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C57C5D626509B2F0035F901 /* AppDelegate.swift */; };
 		2C57C5D926509B2F0035F901 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C57C5D826509B2F0035F901 /* GameScene.sks */; };
 		2C57C5DD26509B2F0035F901 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C57C5DC26509B2F0035F901 /* GameScene.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C1527F4265193DA00B4D9FD /* gameOver.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameOver.caf; sourceTree = "<group>"; };
 		2C57C5D326509B2F0035F901 /* Whack-a-penguin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Whack-a-penguin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C57C5D626509B2F0035F901 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C57C5D826509B2F0035F901 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		2CCA74712651586500330E75 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				2C1527F4265193DA00B4D9FD /* gameOver.caf */,
 				2CCA746C2651585D00330E75 /* whack.caf */,
 				2CCA746D2651585D00330E75 /* whackBad.caf */,
 			);
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CCA746F2651585D00330E75 /* whackBad.caf in Resources */,
+				2C1527F5265193DA00B4D9FD /* gameOver.caf in Resources */,
 				2C57C5E226509B2F0035F901 /* Main.storyboard in Resources */,
 				2C57C5D926509B2F0035F901 /* GameScene.sks in Resources */,
 				2C57C5E426509B310035F901 /* Assets.xcassets in Resources */,

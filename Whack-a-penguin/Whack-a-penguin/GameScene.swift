@@ -16,6 +16,7 @@ class GameScene: SKScene {
 	private var maxNumRound = 30
     private var slots = [WhackSlot]()
     private var popupTime = 0.85
+	private let gameOverSound = "gameOver.caf" // challenge 1
     
     override func didMove(to view: SKView) {
         setUpGameBackground()
@@ -108,6 +109,10 @@ extension GameScene {
 											y: CGFloat(view?.bounds.midY ?? (768 / 2)))
 			gameOverNode.zPosition = 1
 			addChild(gameOverNode)
+			// challenge 1
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+				self?.run(SKAction.playSoundFileNamed((self?.gameOverSound)! , waitForCompletion: false))
+			}
 			return
 		}
     }
