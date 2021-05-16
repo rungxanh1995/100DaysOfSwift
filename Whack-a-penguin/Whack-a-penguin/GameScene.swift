@@ -95,6 +95,21 @@ extension GameScene {
 		}
 	}
 	
+	// challenge 2
+	fileprivate func createFinalScoreLabel() {
+		let finalScoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+		finalScoreLabel.text = "Final Score: \(score)"
+		finalScoreLabel.zPosition = 1
+		finalScoreLabel.position = CGPoint(
+			x: CGFloat(view?.bounds.midX ?? (1024 / 2)),
+			y: CGFloat(view?.bounds.midY ?? (768 / 2)) - 80
+		)
+		finalScoreLabel.horizontalAlignmentMode = .center
+		finalScoreLabel.fontSize = 48
+		finalScoreLabel.name = "finalScoreLabel"
+		addChild(finalScoreLabel)
+	}
+	
 	private func createBadPenguin() {
 		if numRounds < maxNumRound {
 			numRounds += 1
@@ -118,6 +133,7 @@ extension GameScene {
 		} else {
 			for slot in slots { slot.hide() }
 			createGameOverLabel()
+			createFinalScoreLabel() // challenge 2
 			return
 		}
     }
