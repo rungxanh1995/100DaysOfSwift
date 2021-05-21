@@ -17,7 +17,7 @@ class CountryCell: UITableViewCell {
 	- author:
 	Joe Pham
 	- parameters:
-	- country: The specific Country type for the cell
+		- country: The specific Country type for the cell
 	*/
 	func configure(for country: Country) {
 		flagImageView.image = UIImage(named: Utils.getFlagFileName(code: country.alpha2Code, type: .SD))
