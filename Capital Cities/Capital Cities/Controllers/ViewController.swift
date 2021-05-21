@@ -22,14 +22,8 @@ class ViewController: UIViewController {
 extension ViewController: MKMapViewDelegate {
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		guard annotation is Capital else { return nil }
-		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Capital.identifier)
-		if annotationView == nil {
-			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Capital.identifier)
-			annotationView?.canShowCallout = true
-			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-		} else {
-			annotationView?.annotation = annotation
-		}
+		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Capital.identifier) as? MKPinAnnotationView
+		configureAnnotationView(&annotationView, annotation) // challenge 1
 		return annotationView
 	}
 	
@@ -41,5 +35,18 @@ extension ViewController: MKMapViewDelegate {
 		ac.addAction(UIAlertAction(title: "OK",
 								   style: .default))
 		present(ac, animated: true)
+	}
+}
+
+extension ViewController {
+	fileprivate func configureAnnotationView(_ annotationView: inout MKPinAnnotationView?, _ annotation: MKAnnotation) {
+		if annotationView == nil {
+			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Capital.identifier)
+			annotationView?.canShowCallout = true
+			annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+			annotationView?.pinTintColor = .systemPink // challenge 1
+		} else {
+			annotationView?.annotation = annotation
+		}
 	}
 }
