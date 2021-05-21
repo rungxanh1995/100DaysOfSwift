@@ -16,6 +16,7 @@
 		2C8EB4C726582A68002EDADA /* Capital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4C626582A68002EDADA /* Capital.swift */; };
 		2C8EB4C92658494C002EDADA /* MapTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4C82658494C002EDADA /* MapTypes.swift */; };
 		2C8EB4CB26586F30002EDADA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4CA26586F30002EDADA /* Utils.swift */; };
+		2C8EB4CD265874D9002EDADA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4CC265874D9002EDADA /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2C8EB4C626582A68002EDADA /* Capital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capital.swift; sourceTree = "<group>"; };
 		2C8EB4C82658494C002EDADA /* MapTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypes.swift; sourceTree = "<group>"; };
 		2C8EB4CA26586F30002EDADA /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		2C8EB4CC265874D9002EDADA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				2C8EB4B226582059002EDADA /* MapViewController.swift */,
+				2C8EB4CC265874D9002EDADA /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				2C8EB4C92658494C002EDADA /* MapTypes.swift in Sources */,
 				2C8EB4AF26582059002EDADA /* AppDelegate.swift in Sources */,
 				2C8EB4C726582A68002EDADA /* Capital.swift in Sources */,
+				2C8EB4CD265874D9002EDADA /* WebViewController.swift in Sources */,
 				2C8EB4B126582059002EDADA /* SceneDelegate.swift in Sources */,
 				2C8EB4CB26586F30002EDADA /* Utils.swift in Sources */,
 			);

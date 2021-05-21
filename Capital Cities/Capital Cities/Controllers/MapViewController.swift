@@ -48,7 +48,15 @@ extension MapViewController: MKMapViewDelegate {
 		let ac = UIAlertController(title: capital.title,
 								   message: capital.info,
 								   preferredStyle: .alert)
-		ac.addAction(UIAlertAction(title: "OK",
+		let wikiAction = UIAlertAction(title: "Wikipedia",
+									   style: .default,
+									   handler: { [weak self] _ in
+										self?.browseWikipedia(
+											about: capital.title!,
+											with: capital.url!)
+									   })
+		ac.addAction(wikiAction) // challenge 3
+		ac.addAction(UIAlertAction(title: "Close",
 								   style: .default))
 		present(ac, animated: true)
 	}
@@ -64,5 +72,13 @@ extension MapViewController {
 		} else {
 			annotationView?.annotation = annotation
 		}
+	}
+	
+	// challenge 3
+	fileprivate func browseWikipedia(about capital: String, with url: URL) {
+		guard let vc = storyboard?.instantiateViewController(withIdentifier: WebViewController.identifier) as? WebViewController else { return }
+		vc.websiteUrl = url
+		vc.title = capital
+		navigationController?.pushViewController(vc, animated: true)
 	}
 }
