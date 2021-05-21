@@ -8,18 +8,34 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
 	@IBOutlet weak var mapView: MKMapView!
+	@IBOutlet weak var mapTypeSegmentControl: UISegmentedControl! // challenge 2
+	private var mapType: MapTypes {
+		return MapTypes(rawValue: mapTypeSegmentControl.selectedSegmentIndex) ?? .hybrid
+	} // challenge 2
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		mapView.delegate = self // no need to Control-drag in IB
-		title = "Capital Cities"
 		mapView.addAnnotations(Capital.mockData)
+	}
+	
+	// challenge 2
+	@IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
+		Utils.hapticOnUIElements()
+		switch mapType {
+		case .map:
+			mapView.mapType = .standard
+		case .hybrid:
+			mapView.mapType = .hybrid
+		case .satellite:
+			mapView.mapType = .satellite
+		}
 	}
 }
 
-extension ViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate {
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		guard annotation is Capital else { return nil }
 		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Capital.identifier) as? MKPinAnnotationView
@@ -38,7 +54,7 @@ extension ViewController: MKMapViewDelegate {
 	}
 }
 
-extension ViewController {
+extension MapViewController {
 	fileprivate func configureAnnotationView(_ annotationView: inout MKPinAnnotationView?, _ annotation: MKAnnotation) {
 		if annotationView == nil {
 			annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Capital.identifier)
