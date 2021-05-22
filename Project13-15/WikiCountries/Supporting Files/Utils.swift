@@ -10,8 +10,6 @@ import UIKit
 struct Utils {
 	static let mainStoryboardName = "Main"
 	static let detailStoryboardIdentifier = "CountryDetailViewController"
-	static let countryCellIdentifier = "CountryCell"
-	static let flagCellIdentifier = "FlagCell"
 	static let infoCellIdentifier = "Info"
 	static let countrySourceURL = "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;capital;population;demonym;area;nativeName;currencies;languages;flag"
 	

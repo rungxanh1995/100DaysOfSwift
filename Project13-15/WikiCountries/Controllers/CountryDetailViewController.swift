@@ -8,27 +8,37 @@
 import UIKit
 
 class CountryDetailViewController: UITableViewController {
-	var country: Country!
 	
-	enum Section: String {
-		case flag = "Flag"
-		case general = "General"
-		case languages = "Languages"
-		case currencies = "Currencies"
+	let countryDetailDataSource = CountryDetailDataSource()
+	var country: Country {
+		return countryDetailDataSource.getCountry()
 	}
-	let sectionTitles: [Section] = [.flag, .general, .languages, .currencies]
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		tableView.dataSource = self
+		tableView.dataSource = countryDetailDataSource
 		tableView.delegate = self
-		guard country != nil else { return }
 		title = country.name
 		navigationItem.largeTitleDisplayMode = .never
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			barButtonSystemItem: .action,
 			target: self,
 			action: #selector(shareFacts))
+	}
+	
+	@objc
+	func shareFacts() {
+		Utils.hapticFeedback(from: .button)
+		var shareItems = [Any]()
+		if let flag = UIImage(named: Utils.getFlagFileName(code: (country.alpha2Code), type: .HD))?.pngData() {
+			shareItems.append(flag)
+		}
+		shareItems.append(countryDetailDataSource.getSharedText())
+		
+		let vc = UIActivityViewController(activityItems: shareItems,
+										  applicationActivities: nil)
+		vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+		present(vc, animated: true)
 	}
 }
 

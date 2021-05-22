@@ -7,12 +7,25 @@
 
 import UIKit
 
-extension CountryDetailViewController {
-	override func numberOfSections(in tableView: UITableView) -> Int {
+class CountryDetailDataSource: NSObject, UITableViewDataSource {
+	var country: Country!
+	func getCountry() -> Country {
+		return country
+	}
+	
+	enum Section: String {
+		case flag = "Flag"
+		case general = "General"
+		case languages = "Languages"
+		case currencies = "Currencies"
+	}
+	let sectionTitles: [Section] = [.flag, .general, .languages, .currencies]
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return sectionTitles.count
 	}
 	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch sectionTitles[section] {
 		case .flag:			return 1
 		case .general:		return 5
@@ -21,14 +34,14 @@ extension CountryDetailViewController {
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return sectionTitles[section].rawValue
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch sectionTitles[indexPath.section] {
 		case .flag:
-			let cell = tableView.dequeueReusableCell(withIdentifier: Utils.flagCellIdentifier, for: indexPath)
+			let cell = tableView.dequeueReusableCell(withIdentifier: FlagCell.identifier, for: indexPath)
 			if let cell = cell as? FlagCell {
 				cell.configure(for: country)
 			}
@@ -59,7 +72,7 @@ extension CountryDetailViewController {
 	}
 }
 
-extension CountryDetailViewController {
+extension CountryDetailDataSource {
 	private func buildName() -> String {
 		return "Name: \(country.name) (\(country.nativeName))"
 	}
@@ -97,7 +110,7 @@ extension CountryDetailViewController {
 		return "\(name) (\(code), \(symbol))"
 	}
 	
-	private func getSharedText() -> String {
+	func getSharedText() -> String {
 		var text = """
 		About \(country.name)
 		General
@@ -116,20 +129,5 @@ extension CountryDetailViewController {
 			text += "\n·\t\(buildCurrency(currency))"
 		}
 		return text
-	}
-	
-	@objc
-	func shareFacts() {
-		Utils.hapticFeedback(from: .button)
-		var shareItems = [Any]()
-		if let flag = UIImage(named: Utils.getFlagFileName(code: (country.alpha2Code), type: .HD))?.pngData() {
-			shareItems.append(flag)
-		}
-		shareItems.append(getSharedText())
-		
-		let vc = UIActivityViewController(activityItems: shareItems,
-										  applicationActivities: nil)
-		vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-		present(vc, animated: true)
 	}
 }

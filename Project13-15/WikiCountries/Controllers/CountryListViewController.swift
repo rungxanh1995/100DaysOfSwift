@@ -32,7 +32,9 @@ extension CountryListViewController {
 		Utils.hapticFeedback(from: .cell)
 		let storyboard = UIStoryboard(name: Utils.mainStoryboardName, bundle: nil)
 		let vc = storyboard.instantiateViewController(identifier: Utils.detailStoryboardIdentifier) as CountryDetailViewController
-		vc.country = countryListDataSource.country(at: indexPath.row)
+		// pass the selected country to the
+		// detail view controller's data source
+		vc.countryDetailDataSource.country = countryListDataSource.country(at: indexPath.row)
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }

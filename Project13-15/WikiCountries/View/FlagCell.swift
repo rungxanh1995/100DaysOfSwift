@@ -10,6 +10,7 @@ import UIKit
 class FlagCell: UITableViewCell {
 	@IBOutlet weak var flagImageView: UIImageView!
 	
+	static let identifier = "FlagCell"
 	/**
 	Prepares the cell's UI before being used
 	- author:
