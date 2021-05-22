@@ -18,7 +18,9 @@ class MapViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		mapView.delegate = self // no need to Control-drag in IB
-		mapView.addAnnotations(Capital.mockData)
+		DispatchQueue.global().async { [unowned self] in
+			self.mapView.addAnnotations(Capital.mockData)
+		}
 	}
 	
 	// challenge 2
