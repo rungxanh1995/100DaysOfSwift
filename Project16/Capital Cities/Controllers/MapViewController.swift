@@ -12,7 +12,7 @@ class MapViewController: UIViewController {
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var mapTypeSegmentControl: UISegmentedControl! // challenge 2
 	private var mapType: MapTypes {
-		return MapTypes(rawValue: mapTypeSegmentControl.selectedSegmentIndex) ?? .hybrid
+		return MapTypes(rawValue: mapTypeSegmentControl.selectedSegmentIndex) ?? .map
 	} // challenge 2
 	
 	override func viewDidLoad() {
@@ -75,8 +75,9 @@ extension MapViewController {
 	}
 	
 	// challenge 3
-	fileprivate func browseWikipedia(about capital: String, with url: URL) {
+	fileprivate func browseWikipedia(about capital: String, with url: URL?) {
 		guard let vc = storyboard?.instantiateViewController(withIdentifier: WebViewController.identifier) as? WebViewController else { return }
+		guard url != nil else { return }
 		vc.websiteUrl = url
 		vc.title = capital
 		navigationController?.pushViewController(vc, animated: true)
