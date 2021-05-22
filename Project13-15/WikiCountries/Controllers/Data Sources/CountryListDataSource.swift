@@ -29,13 +29,17 @@ class CountryListDataSource: NSObject {
 }
 
 extension CountryListDataSource: UITableViewDataSource {
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 1
+	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return countries.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(
-				withIdentifier: Utils.countryCellIdentifier,
+				withIdentifier: CountryCell.identifier,
 				for: indexPath)
 				as? CountryCell else {
 			fatalError("Unable to dequeue CountryCell")

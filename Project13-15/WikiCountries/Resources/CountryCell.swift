@@ -12,6 +12,7 @@ class CountryCell: UITableViewCell {
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var capitalNameLabel: UILabel!
 	
+	static let identifier = "CountryCell"
 	/**
 	Prepares the cell's UI before being used
 	- author:
