@@ -8,7 +8,7 @@
 import UIKit
 
 class CountryListDataSource: NSObject {
-	private var countries: [Country] = Bundle.main.decode(from: Utils.jsonSourceURL)
+	var countries = [Country]()
 	
 	func country(at row: Int) -> Country {
 		return countries[row]

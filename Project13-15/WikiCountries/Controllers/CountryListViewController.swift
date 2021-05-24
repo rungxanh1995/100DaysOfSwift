@@ -21,8 +21,11 @@ class CountryListViewController: UITableViewController, Storyboarded {
 		tableView.rowHeight = 68
 		title = "WikiCountries"
 		navigationController?.navigationBar.prefersLargeTitles = true
-		DispatchQueue.main.async {
-			self.tableView.reloadData()
+		DispatchQueue.global().async { [weak self] in
+			self?.countryListDataSource.countries = Bundle.main.decode(from: Utils.jsonSourceURL)
+			DispatchQueue.main.async {
+				self?.tableView.reloadData()
+			}
 		}
 	}
 }
