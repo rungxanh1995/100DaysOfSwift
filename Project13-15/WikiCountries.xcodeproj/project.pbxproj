@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C9506F1265BEF9A00A6A267 /* Networking+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9506F0265BEF9A00A6A267 /* Networking+URL.swift */; };
+		2C9506F7265C073B00A6A267 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9506F6265C073B00A6A267 /* Storyboarded.swift */; };
+		2C9506F9265C075C00A6A267 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9506F8265C075C00A6A267 /* Coordinator.swift */; };
+		2C9506FB265C07E700A6A267 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9506FA265C07E700A6A267 /* MainCoordinator.swift */; };
 		2CFB305A2655F22F001B928C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB30592655F22F001B928C /* AppDelegate.swift */; };
 		2CFB305C2655F22F001B928C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB305B2655F22F001B928C /* SceneDelegate.swift */; };
 		2CFB305E2655F22F001B928C /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB305D2655F22F001B928C /* CountryListViewController.swift */; };
@@ -526,6 +529,9 @@
 
 /* Begin PBXFileReference section */
 		2C9506F0265BEF9A00A6A267 /* Networking+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+URL.swift"; sourceTree = "<group>"; };
+		2C9506F6265C073B00A6A267 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
+		2C9506F8265C075C00A6A267 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		2C9506FA265C07E700A6A267 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		2CFB30562655F22F001B928C /* WikiCountries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WikiCountries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFB30592655F22F001B928C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CFB305B2655F22F001B928C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1055,6 +1061,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C9506F4265C071900A6A267 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2C9506FA265C07E700A6A267 /* MainCoordinator.swift */,
+				2C9506F5265C072A00A6A267 /* Protocols */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2C9506F5265C072A00A6A267 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C9506F8265C075C00A6A267 /* Coordinator.swift */,
+				2C9506F6265C073B00A6A267 /* Storyboarded.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		2CFB304D2655F22F001B928C = {
 			isa = PBXGroup;
 			children = (
@@ -1079,6 +1103,7 @@
 				2CFB30752655F3C0001B928C /* Model */,
 				2CFB30702655F35B001B928C /* View */,
 				2CFB306D2655F252001B928C /* Controllers */,
+				2C9506F4265C071900A6A267 /* Coordinator */,
 				2CFB306F2655F34E001B928C /* Resources */,
 				2CFB306E2655F2D2001B928C /* Supporting Files */,
 			);
@@ -2230,7 +2255,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9506F1265BEF9A00A6A267 /* Networking+URL.swift in Sources */,
+				2C9506FB265C07E700A6A267 /* MainCoordinator.swift in Sources */,
 				2CFB347226572F70001B928C /* CountryDetailDataSource.swift in Sources */,
+				2C9506F9265C075C00A6A267 /* Coordinator.swift in Sources */,
 				2CFB307D2655FCDC001B928C /* CountryCell.swift in Sources */,
 				2CFB307B2655FA8F001B928C /* CountryListDataSource.swift in Sources */,
 				2CFB305E2655F22F001B928C /* CountryListViewController.swift in Sources */,
@@ -2240,6 +2267,7 @@
 				2CFB346E2656A82F001B928C /* CountryDetailViewController.swift in Sources */,
 				2CFB30722655F38D001B928C /* FlagCell.swift in Sources */,
 				2CFB30792655F7DE001B928C /* Utils.swift in Sources */,
+				2C9506F7265C073B00A6A267 /* Storyboarded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

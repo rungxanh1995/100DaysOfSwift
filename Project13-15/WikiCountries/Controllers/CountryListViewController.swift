@@ -7,9 +7,12 @@
 
 import UIKit
 
-class CountryListViewController: UITableViewController {
-
+class CountryListViewController: UITableViewController, Storyboarded {
+	weak var coordinator: MainCoordinator?
 	private var countryListDataSource = CountryListDataSource()
+	
+	typealias ShowCountryAction = (Country) -> Void
+	var showCountryAction: ShowCountryAction?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -27,11 +30,7 @@ class CountryListViewController: UITableViewController {
 extension CountryListViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		Utils.hapticFeedback(from: .cell)
-		let storyboard = UIStoryboard(name: Utils.mainStoryboardName, bundle: nil)
-		let vc = storyboard.instantiateViewController(identifier: Utils.detailStoryboardIdentifier) as CountryDetailViewController
-		// pass the selected country to the
-		// detail view controller's data source
-		vc.countryDetailDataSource.country = countryListDataSource.country(at: indexPath.row)
-		navigationController?.pushViewController(vc, animated: true)
+		let country = countryListDataSource.country(at: indexPath.row)
+		showCountryAction?(country)
 	}
 }

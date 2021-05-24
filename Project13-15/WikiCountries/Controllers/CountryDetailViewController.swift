@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CountryDetailViewController: UITableViewController {
-	
+class CountryDetailViewController: UITableViewController, Storyboarded {
+	weak var coordinator: MainCoordinator?
 	let countryDetailDataSource = CountryDetailDataSource()
 	var country: Country {
 		return countryDetailDataSource.getCountry()
@@ -26,6 +26,7 @@ class CountryDetailViewController: UITableViewController {
 			action: #selector(shareFacts))
 	}
 	
+	#warning ("To be refactored into the main coordinator")
 	@objc
 	func shareFacts() {
 		Utils.hapticFeedback(from: .button)
