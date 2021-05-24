@@ -8,23 +8,10 @@
 import UIKit
 
 class CountryListDataSource: NSObject {
-	private var countries: [Country] = []
+	private var countries: [Country] = Bundle.main.decode(from: Utils.jsonSourceURL)
 	
 	func country(at row: Int) -> Country {
 		return countries[row]
-	}
-	
-	func loadData() {
-		if let url = URL(string: Utils.countrySourceURL) {
-			do {
-				let data = try Data(contentsOf: url)
-				let decodedCountries = try? JSONDecoder().decode(Countries.self, from: data)
-				countries = decodedCountries ?? []
-			}
-			catch let error {
-				print("Data or JSONDecoder error: \(error.localizedDescription)")
-			}
-		}
 	}
 }
 

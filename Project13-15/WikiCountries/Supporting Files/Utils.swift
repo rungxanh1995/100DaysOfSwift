@@ -11,7 +11,7 @@ struct Utils {
 	static let mainStoryboardName = "Main"
 	static let detailStoryboardIdentifier = "CountryDetailViewController"
 	static let infoCellIdentifier = "Info"
-	static let countrySourceURL = "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;capital;population;demonym;area;nativeName;currencies;languages;flag"
+	static let jsonSourceURL = "https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;capital;population;demonym;area;nativeName;currencies;languages;flag"
 	
 	static let prefixSD = "flag_sd_"
 	static let prefixHD = "flag_hd_"

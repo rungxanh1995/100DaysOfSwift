@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C9506F1265BEF9A00A6A267 /* Networking+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9506F0265BEF9A00A6A267 /* Networking+URL.swift */; };
 		2CFB305A2655F22F001B928C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB30592655F22F001B928C /* AppDelegate.swift */; };
 		2CFB305C2655F22F001B928C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB305B2655F22F001B928C /* SceneDelegate.swift */; };
 		2CFB305E2655F22F001B928C /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB305D2655F22F001B928C /* CountryListViewController.swift */; };
@@ -524,6 +525,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C9506F0265BEF9A00A6A267 /* Networking+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking+URL.swift"; sourceTree = "<group>"; };
 		2CFB30562655F22F001B928C /* WikiCountries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WikiCountries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFB30592655F22F001B928C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CFB305B2655F22F001B928C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1128,6 +1130,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFB30732655F3BB001B928C /* Country.swift */,
+				2C9506F0265BEF9A00A6A267 /* Networking+URL.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2226,6 +2229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9506F1265BEF9A00A6A267 /* Networking+URL.swift in Sources */,
 				2CFB347226572F70001B928C /* CountryDetailDataSource.swift in Sources */,
 				2CFB307D2655FCDC001B928C /* CountryCell.swift in Sources */,
 				2CFB307B2655FA8F001B928C /* CountryListDataSource.swift in Sources */,

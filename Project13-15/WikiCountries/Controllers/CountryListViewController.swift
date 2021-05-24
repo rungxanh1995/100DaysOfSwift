@@ -18,11 +18,8 @@ class CountryListViewController: UITableViewController {
 		tableView.rowHeight = 68
 		title = "WikiCountries"
 		navigationController?.navigationBar.prefersLargeTitles = true
-		DispatchQueue.global().async {
-			self.countryListDataSource.loadData()
-			DispatchQueue.main.async {
-				self.tableView.reloadData()
-			}
+		DispatchQueue.main.async {
+			self.tableView.reloadData()
 		}
 	}
 }
