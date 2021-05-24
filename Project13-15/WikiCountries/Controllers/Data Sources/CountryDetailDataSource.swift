@@ -18,8 +18,9 @@ class CountryDetailDataSource: NSObject, UITableViewDataSource {
 		case general = "General"
 		case languages = "Languages"
 		case currencies = "Currencies"
+		case langCodes = "Language Codes"
 	}
-	let sectionTitles: [Section] = [.flag, .general, .languages, .currencies]
+	let sectionTitles: [Section] = [.flag, .general, .languages, .langCodes, .currencies]
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return sectionTitles.count
@@ -27,10 +28,14 @@ class CountryDetailDataSource: NSObject, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch sectionTitles[section] {
-		case .flag:			return 1
-		case .general:		return 5
-		case .languages:	return country.languages.count
-		case .currencies:	return country.currencies.count
+		case .flag:
+			return 1
+		case .general:
+			return 5
+		case .languages, .langCodes:
+			return country.languages.count
+		case .currencies:
+			return country.currencies.count
 		}
 	}
 	
@@ -62,6 +67,11 @@ class CountryDetailDataSource: NSObject, UITableViewDataSource {
 			let cell = tableView.dequeueReusableCell(withIdentifier: Utils.infoCellIdentifier, for: indexPath)
 			cell.textLabel?.numberOfLines = 0
 			cell.textLabel?.text = buildLanguage(country.languages[indexPath.row])
+			return cell
+		case .langCodes:
+			let cell = tableView.dequeueReusableCell(withIdentifier: Utils.infoCellIdentifier, for: indexPath)
+			cell.textLabel?.numberOfLines = 0
+			cell.textLabel?.text = buildLangCode(country.languages[indexPath.row])
 			return cell
 		case .currencies:
 			let cell = tableView.dequeueReusableCell(withIdentifier: Utils.infoCellIdentifier, for: indexPath)
@@ -99,6 +109,13 @@ extension CountryDetailDataSource {
 		return "Area: unknown"
 	}
 	
+	private func buildLangCode(_ language: Language) -> String {
+		if let iso6391 = language.iso6391 {
+			return "\(iso6391), \(language.iso6392)"
+		}
+		return "\(language.iso6392)"
+	}
+	
 	private func buildLanguage(_ language: Language) -> String {
 		return "\(language.name) (\(language.nativeName))"
 	}
@@ -123,6 +140,10 @@ extension CountryDetailDataSource {
 		"""
 		for language in country.languages {
 			text += "\n·\t\(buildLanguage(language))"
+		}
+		text.append(contentsOf: "\nLanguage Codes")
+		for code in country.languages {
+			text += "\n·\t\(buildLangCode(code))"
 		}
 		text.append(contentsOf: "\nCurrencies")
 		for currency in country.currencies {
