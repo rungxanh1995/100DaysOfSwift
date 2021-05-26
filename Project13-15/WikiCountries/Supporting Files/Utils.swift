@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreHaptics
 
 struct Utils {
 	static let mainStoryboardName = "Main"
@@ -43,6 +44,9 @@ struct Utils {
 }
 
 extension Utils {
+	static var isHapticAvailable: Bool {
+		return CHHapticEngine.capabilitiesForHardware().supportsHaptics
+	}
 	enum Haptic {
 		case cell
 		case button

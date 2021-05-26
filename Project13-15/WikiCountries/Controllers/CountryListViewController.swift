@@ -32,7 +32,9 @@ class CountryListViewController: UITableViewController, Storyboarded {
 
 extension CountryListViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		Utils.hapticFeedback(from: .cell)
+		if Utils.isHapticAvailable {
+			Utils.hapticFeedback(from: .cell)
+		}
 		let country = countryListDataSource.country(at: indexPath.row)
 		showCountryAction?(country)
 	}

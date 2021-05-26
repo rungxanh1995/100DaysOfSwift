@@ -29,7 +29,9 @@ class CountryDetailViewController: UITableViewController, Storyboarded {
 	#warning ("To be refactored into the main coordinator")
 	@objc
 	func shareFacts() {
-		Utils.hapticFeedback(from: .button)
+		if Utils.isHapticAvailable {
+			Utils.hapticFeedback(from: .button)
+		}
 		var shareItems = [Any]()
 		if let flag = UIImage(named: Utils.getFlagFileName(code: (country.alpha2Code), type: .HD))?.pngData() {
 			shareItems.append(flag)
