@@ -9,8 +9,13 @@ import UIKit
 
 class CountryListDataSource: NSObject {
 	var countries = [Country]()
+	var filteredCountries = [Country]()
+	var isFiltering = false
 	
 	func country(at row: Int) -> Country {
+		if isFiltering {
+			return filteredCountries[row]
+		}
 		return countries[row]
 	}
 }
@@ -21,6 +26,9 @@ extension CountryListDataSource: UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if isFiltering {
+			return filteredCountries.count
+		}
 		return countries.count
 	}
 	

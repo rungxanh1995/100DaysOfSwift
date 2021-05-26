@@ -26,7 +26,6 @@ class CountryDetailViewController: UITableViewController, Storyboarded {
 			action: #selector(shareFacts))
 	}
 	
-	#warning ("To be refactored into the main coordinator")
 	@objc
 	func shareFacts() {
 		if Utils.isHapticAvailable {
