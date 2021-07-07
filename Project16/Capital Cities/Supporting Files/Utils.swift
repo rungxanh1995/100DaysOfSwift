@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Utils {
+enum HapticFeedback {
 	static func hapticOnUIElements() {
 		let generator = UIImpactFeedbackGenerator(style: .light)
 		generator.impactOccurred(intensity: 1.0)

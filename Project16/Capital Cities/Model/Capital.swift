@@ -11,13 +11,13 @@ class Capital: NSObject, MKAnnotation {
 	internal var title: String?
 	internal var coordinate: CLLocationCoordinate2D
 	internal var info: String
-	internal var url: URL? // challenge 3
+	internal var url: String // challenge 3
 	
 	init(title: String, coordinate: CLLocationCoordinate2D, info: String, wikiUrl: String) {
 		self.title = title
 		self.coordinate = coordinate
 		self.info = info
-		self.url = URL(string: wikiUrl)
+		self.url = wikiUrl
 	}
 }
 

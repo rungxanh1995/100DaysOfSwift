@@ -16,7 +16,7 @@
 		2C8EB4C726582A68002EDADA /* Capital.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4C626582A68002EDADA /* Capital.swift */; };
 		2C8EB4C92658494C002EDADA /* MapTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4C82658494C002EDADA /* MapTypes.swift */; };
 		2C8EB4CB26586F30002EDADA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4CA26586F30002EDADA /* Utils.swift */; };
-		2C8EB4CD265874D9002EDADA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8EB4CC265874D9002EDADA /* WebViewController.swift */; };
+		2CFF87862696013F00240EA8 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF87852696013F00240EA8 /* UIViewController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		2C8EB4C626582A68002EDADA /* Capital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capital.swift; sourceTree = "<group>"; };
 		2C8EB4C82658494C002EDADA /* MapTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTypes.swift; sourceTree = "<group>"; };
 		2C8EB4CA26586F30002EDADA /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		2C8EB4CC265874D9002EDADA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		2CFF87852696013F00240EA8 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +68,7 @@
 				2C8EB4B026582059002EDADA /* SceneDelegate.swift */,
 				2C8EB4C526582A59002EDADA /* Model */,
 				2C8EB4C22658206E002EDADA /* Controllers */,
+				2CFF87842696012F00240EA8 /* Extensions */,
 				2C8EB4C32658209D002EDADA /* Resources */,
 				2C8EB4C4265820A3002EDADA /* Supporting Files */,
 			);
@@ -78,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				2C8EB4B226582059002EDADA /* MapViewController.swift */,
-				2C8EB4CC265874D9002EDADA /* WebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -109,6 +109,14 @@
 				2C8EB4C82658494C002EDADA /* MapTypes.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2CFF87842696012F00240EA8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF87852696013F00240EA8 /* UIViewController+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,8 +193,8 @@
 				2C8EB4C92658494C002EDADA /* MapTypes.swift in Sources */,
 				2C8EB4AF26582059002EDADA /* AppDelegate.swift in Sources */,
 				2C8EB4C726582A68002EDADA /* Capital.swift in Sources */,
-				2C8EB4CD265874D9002EDADA /* WebViewController.swift in Sources */,
 				2C8EB4B126582059002EDADA /* SceneDelegate.swift in Sources */,
+				2CFF87862696013F00240EA8 /* UIViewController+Ext.swift in Sources */,
 				2C8EB4CB26586F30002EDADA /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +342,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Capital Cities/Capital Cities.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Capital Cities/Supporting Files/Info.plist";
@@ -344,8 +353,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joepham.Capital-Cities";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -354,6 +364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Capital Cities/Capital Cities.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Capital Cities/Supporting Files/Info.plist";
@@ -364,8 +375,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.joepham.Capital-Cities";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

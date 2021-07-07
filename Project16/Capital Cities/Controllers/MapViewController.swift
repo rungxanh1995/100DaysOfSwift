@@ -12,20 +12,21 @@ class MapViewController: UIViewController {
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var mapTypeSegmentControl: UISegmentedControl! // challenge 2
 	private var mapType: MapTypes {
-		return MapTypes(rawValue: mapTypeSegmentControl.selectedSegmentIndex) ?? .map
+		MapTypes(rawValue: mapTypeSegmentControl.selectedSegmentIndex) ?? .map
 	} // challenge 2
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		mapView.delegate = self // no need to Control-drag in IB
-		DispatchQueue.global().async { [unowned self] in
+		DispatchQueue.global().async { [weak self] in
+			guard let self = self else { return }
 			self.mapView.addAnnotations(Capital.mockData)
 		}
 	}
 	
 	// challenge 2
 	@IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
-		Utils.hapticOnUIElements()
+		HapticFeedback.hapticOnUIElements()
 		switch mapType {
 		case .map:
 			mapView.mapType = .standard
@@ -50,16 +51,17 @@ extension MapViewController: MKMapViewDelegate {
 		let ac = UIAlertController(title: capital.title,
 								   message: capital.info,
 								   preferredStyle: .alert)
-		let wikiAction = UIAlertAction(title: "Wikipedia",
-									   style: .default,
-									   handler: { [weak self] _ in
-										self?.browseWikipedia(
-											about: capital.title!,
-											with: capital.url!)
-									   })
+		let wikiAction = UIAlertAction(
+			title: "Wikipedia",
+			style: .default,
+			handler: { [weak self] _ in
+				guard let self = self else { return }
+				self.browseWikipedia(about: capital.title!, with: capital.url)
+			})
+		let closeAction = UIAlertAction(title: "Close", style: .default)
+		
 		ac.addAction(wikiAction) // challenge 3
-		ac.addAction(UIAlertAction(title: "Close",
-								   style: .default))
+		ac.addAction(closeAction)
 		present(ac, animated: true)
 	}
 }
@@ -77,11 +79,8 @@ extension MapViewController {
 	}
 	
 	// challenge 3
-	fileprivate func browseWikipedia(about capital: String, with url: URL?) {
-		guard let vc = storyboard?.instantiateViewController(withIdentifier: WebViewController.identifier) as? WebViewController else { return }
-		guard url != nil else { return }
-		vc.websiteUrl = url
-		vc.title = capital
-		navigationController?.pushViewController(vc, animated: true)
+	private func browseWikipedia(about capital: String, with url: String) {
+		guard let url = URL(string: url) else { return }
+		presentSafariVC(with: url)
 	}
 }
