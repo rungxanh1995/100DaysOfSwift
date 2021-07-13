@@ -103,7 +103,7 @@ extension GameScene {
 	
 	private func configureGameTimer(with interval: Double) {
 		gameTimer = Timer.scheduledTimer(
-			timeInterval: timerInterval,
+			timeInterval: interval,
 			target: self,
 			selector: #selector(createDebris),
 			userInfo: nil,
@@ -140,7 +140,7 @@ extension GameScene {
 		if let touch = touches.first {
 			var location = touch.location(in: self)
 			
-			if location.y < Display.bottomBound + 100 { location.y = 100 }
+			if location.y < Display.bottomBound + 100 { location.y = Display.bottomBound + 100 }
 			else if location.y > Display.height - 100 { location.y = Display.height - 100 }
 			player.position.y = location.y
 		}
