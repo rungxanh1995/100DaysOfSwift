@@ -9,6 +9,7 @@ import SpriteKit
 
 class GameScene: SKScene {
 	
+	// MARK: Properties
 	private var starfield: SKEmitterNode!
 	private var player: SKSpriteNode!
 	
@@ -25,6 +26,7 @@ class GameScene: SKScene {
 	private var timerInterval = 1.0 // challenge 2
 	
 	
+	// MARK: Controllers
 	override func didMove(to view: SKView) {
 		backgroundColor = .black
 		
@@ -68,6 +70,7 @@ class GameScene: SKScene {
 
 extension GameScene: SKPhysicsContactDelegate {
 	
+	// MARK: Delegate
 	private func configurePhysicsWorld() {
 		physicsWorld.gravity			= CGVector(dx: 0, dy: 0)
 		physicsWorld.contactDelegate	= self
@@ -77,6 +80,7 @@ extension GameScene: SKPhysicsContactDelegate {
 
 extension GameScene {
 	
+	// MARK: UI
 	private func configureStarfield() {
 		starfield 			= EmitterNodes.starfield
 		starfield.position 	= CGPoint(x: Display.width, y: Display.height / 2)
@@ -100,6 +104,9 @@ extension GameScene {
 		scoreLabel.horizontalAlignmentMode	= .left
 		addChild(scoreLabel)
 	}
+	
+	
+	// MARK: Main Logic
 	
 	private func configureGameTimer(with interval: Double) {
 		gameTimer = Timer.scheduledTimer(
