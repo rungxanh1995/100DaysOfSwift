@@ -16,10 +16,14 @@ class GameScene: SKScene {
 	let bottomEdge 		= GameScreenEdges.bottom
 	let rightEdge 		= GameScreenEdges.right
     
-	var scoreLabel: SKLabelNode!
+	var scoreLabel: SKLabelNode! // challenge 1
 	var score = 0 {
 		didSet { scoreLabel.text = "Score: \(score)"}
 	}
+	
+	var gameOverLabel: SKLabelNode! // challenge 2
+	var launchCount		= 0			// challenge 2
+	let maxLaunches		= 20
 	
 	
 	override func didMove(to view: SKView) {
@@ -35,6 +39,7 @@ class GameScene: SKScene {
 		super.touchesBegan(touches, with: event)
 		checkTouches(in: touches)
 	}
+	
 	
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesMoved(touches, with: event)

@@ -34,6 +34,6 @@ enum NodeNames {
 }
 
 
-enum LabelNodes {
-	static let score		= SKLabelNode(fontNamed: "Chalkduster")
+enum FontNames {
+	static let chalkduster	= "Chalkduster"
 }

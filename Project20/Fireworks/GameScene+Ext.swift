@@ -23,17 +23,38 @@ extension GameScene {
 	}
 	
 	
+	// challenge 1
 	func configureScoreLabel() {
-		scoreLabel			= LabelNodes.score
-		scoreLabel.position	= CGPoint(x: Display.leftEdge + 16, y: Display.bottomEdge + 16)
-		scoreLabel.name		= "Score label"
+		scoreLabel				= SKLabelNode(fontNamed: FontNames.chalkduster)
+		scoreLabel.position		= CGPoint(x: Display.leftEdge + 16, y: Display.bottomEdge + 16)
+		scoreLabel.name			= "Score label"
 		scoreLabel.horizontalAlignmentMode	= .left
 		addChild(scoreLabel)
 	}
 	
 	
+	// challenge 2
+	func configureGameOverLabel() {
+		gameOverLabel			= SKLabelNode(fontNamed: FontNames.chalkduster)
+		gameOverLabel.position	= CGPoint(x: Display.width / 2, y: Display.height / 2)
+		gameOverLabel.zPosition = 999
+		gameOverLabel.fontSize	= 48
+		gameOverLabel.text		= "GAME OVER"
+		gameOverLabel.name		= "Game Over label"
+		gameOverLabel.horizontalAlignmentMode	= .center
+		addChild(gameOverLabel)
+	}
+	
+	
 	@objc
 	private func launchFireworks() {
+		// challenge 2
+		guard launchCount < maxLaunches else {
+			configureGameOverLabel()
+			gameTimer?.invalidate()
+			return
+		}
+		
 		let movementAmount: CGFloat = 1800
 		
 		switch Int.random(in: 0...3) {
@@ -72,6 +93,8 @@ extension GameScene {
 		default:
 			break
 		}
+		
+		launchCount += 1 // challenge 2
 	}
 	
 	
@@ -81,7 +104,7 @@ extension GameScene {
 		fireworkNode.position		= CGPoint(x: x, y: y)
 		
 		// 2 + 3
-		let firework				= SKSpriteNode(imageNamed: "firework")
+		let firework				= SKSpriteNode(imageNamed: NodeNames.firework)
 		firework.name				= NodeNames.firework
 		firework.colorBlendFactor	= 1
 		fireworkNode.addChild(firework)
@@ -128,7 +151,16 @@ extension GameScene {
 		explosion.position	= firework.position
 		addChild(explosion)
 		
-		firework.removeFromParent()
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) { explosion.removeFromParent() }
+		removeNodeAfterDuration(node: firework, duration: 0.0)
+		removeNodeAfterDuration(node: explosion, duration: 2.0) // challenge 3
+	}
+	
+	
+	// challenge 3
+	private func removeNodeAfterDuration(node: SKNode, duration: TimeInterval) {
+		let wait 		= SKAction.wait(forDuration: duration)
+		let removal		= SKAction.run { node.removeFromParent() }
+		let sequence	= SKAction.sequence([wait, removal])
+		node.run(sequence)
 	}
 }
