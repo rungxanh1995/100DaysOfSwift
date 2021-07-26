@@ -25,7 +25,6 @@ class ContentVC: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	private var deleteButtonTapped = false
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +40,7 @@ class ContentVC: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		guard isNewNote, !deleteButtonTapped else { return }
+		guard isNewNote else { return }
 		note.title		= title!
 		note.content	= noteContentView.text
 				
@@ -70,7 +69,6 @@ class ContentVC: UIViewController {
 	
 	@objc
 	func didTapDeleteButton() {
-		deleteButtonTapped = true
 		delegate.didTapDeleteButton(for: note)
 		navigationController?.popViewController(animated: true)
 	}
