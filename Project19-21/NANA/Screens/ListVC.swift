@@ -110,9 +110,8 @@ extension ListVC: UITableViewDelegate {
 				return
 			}
 			DispatchQueue.main.async {
-				#warning("Bug here: Deleting from list vc causing app termination")
-				tableView.deleteRows(at: [indexPath], with: .automatic)
 				self.notes.remove(at: indexPath.row)
+				tableView.deleteRows(at: [indexPath], with: .automatic)
 				self.updateNotesCount()
 				
 				if self.notes.isEmpty { self.showEmptyStateView(with: Messages.noNotes, in: self.view) }
