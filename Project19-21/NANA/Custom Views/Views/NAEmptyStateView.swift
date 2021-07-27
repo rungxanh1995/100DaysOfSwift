@@ -36,7 +36,6 @@ class NAEmptyStateView: UIView {
 		messageLabel.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(messageLabel)
 		
-//		let centerYConstant: CGFloat = (DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed) ? -80 : -130
 		NSLayoutConstraint.activate([
 			messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 			messageLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),

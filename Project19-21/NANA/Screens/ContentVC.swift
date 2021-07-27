@@ -86,13 +86,6 @@ class ContentVC: UIViewController {
 
 extension ContentVC {
 	
-	private func pushListVC() {
-		noteContentView.resignFirstResponder()
-		let listVC      = ListVC()
-		navigationController?.pushViewController(listVC, animated: true)
-	}
-	
-	
 	private func configureNoteContentView() {
 		noteContentView								= UITextView(frame: view.bounds)
 		noteContentView.text						= note.content

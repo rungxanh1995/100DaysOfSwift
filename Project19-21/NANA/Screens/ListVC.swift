@@ -110,8 +110,10 @@ extension ListVC: UITableViewDelegate {
 				return
 			}
 			DispatchQueue.main.async {
+				/// Delete the note from notes array first before deleting from table view
+				/// Otherwise it would crash the app
 				self.notes.remove(at: indexPath.row)
-				tableView.deleteRows(at: [indexPath], with: .automatic)
+				self.tableView.deleteRows(at: [indexPath], with: .automatic)
 				self.updateNotesCount()
 				
 				if self.notes.isEmpty { self.showEmptyStateView(with: Messages.noNotes, in: self.view) }
