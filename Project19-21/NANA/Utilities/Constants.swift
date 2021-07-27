@@ -11,6 +11,7 @@ import UIKit
 enum Images {
 	static let note						= UIImage(systemName: "square.and.pencil")!
 	static let trash					= UIImage(systemName: "trash")!
+	static let share					= UIImage(systemName: "square.and.arrow.up")!
 }
 
 

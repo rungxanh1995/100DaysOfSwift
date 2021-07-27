@@ -14,6 +14,7 @@ class ContentVC: UIViewController {
 	private var note: Note!
 	private var delegate: ListVCDelegate!
 	private var isNewNote: Bool!
+	
 	init(note: Note, delegate: ListVCDelegate, isNewNote: Bool) {
 		super.init(nibName: nil, bundle: nil)
 		self.note		= note
@@ -61,7 +62,7 @@ class ContentVC: UIViewController {
 	@objc
 	func didTapComposeButton() {
 		isNewNote									= true
-		noteContentView.text						= ""
+		noteContentView.text						= nil
 		noteContentView.isUserInteractionEnabled	= true
 		title										= Note.new().title
 	}
@@ -71,6 +72,14 @@ class ContentVC: UIViewController {
 	func didTapDeleteButton() {
 		delegate.didTapDeleteButton(for: note)
 		navigationController?.popViewController(animated: true)
+	}
+	
+	
+	@objc
+	func didTapShareButton() {
+		let text	= "\(title!)\n\(noteContentView.text ?? "")"
+		let vc		= UIActivityViewController(activityItems: [text], applicationActivities: nil)
+		present(vc, animated: true)
 	}
 }
 
@@ -89,7 +98,7 @@ extension ContentVC {
 		noteContentView.text						= note.content
 		noteContentView.font						= UIFont.preferredFont(forTextStyle: .body)
 		noteContentView.backgroundColor				= .systemBackground
-		noteContentView.returnKeyType				= .done
+		noteContentView.returnKeyType				= .default
 		noteContentView.keyboardDismissMode 		= .interactive
 		noteContentView.autocorrectionType			= .default
 		noteContentView.isUserInteractionEnabled	= isNewNote
@@ -101,7 +110,9 @@ extension ContentVC {
 		let spacer			= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let composeButton	= UIBarButtonItem(image: Images.note, style: .plain, target: self, action: #selector(didTapComposeButton))
 		let deleteButton	= UIBarButtonItem(image: Images.trash, style: .plain, target: self, action: #selector(didTapDeleteButton))
-		let toolbarItems	= isNewNote ? [spacer, composeButton] : [deleteButton, spacer, composeButton]
+		let shareButton		= UIBarButtonItem(image: Images.share, style: .plain, target: self, action: #selector(didTapShareButton))
+		
+		let toolbarItems	= isNewNote ? [spacer, shareButton, spacer, composeButton] : [deleteButton, spacer, shareButton, spacer, composeButton]
 		setToolbarItems(toolbarItems, animated: true)
 		navigationController?.isToolbarHidden = false
 	}
