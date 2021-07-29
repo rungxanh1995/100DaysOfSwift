@@ -65,6 +65,7 @@ class ContentVC: UIViewController {
 		noteContentView.text						= nil
 		noteContentView.isUserInteractionEnabled	= true
 		title										= Note.new().title
+		configureToolbarItems()
 	}
 	
 	

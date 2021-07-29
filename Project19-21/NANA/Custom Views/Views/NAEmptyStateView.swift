@@ -31,16 +31,11 @@ class NAEmptyStateView: UIView {
 	}
 	
 	private func configureMessageLabel() {
+		addSubview(messageLabel)
 		messageLabel.numberOfLines	= 3
 		messageLabel.textColor		= .secondaryLabel
-		messageLabel.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(messageLabel)
+		messageLabel.positionInCenter(of: self)
 		
-		NSLayoutConstraint.activate([
-			messageLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-			messageLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
-			messageLabel.trailingAnchor.constraint (equalTo: self.trailingAnchor, constant: -40),
-			messageLabel.heightAnchor.constraint(equalToConstant: 200)
-		])
+		messageLabel.heightAnchor.constraint(equalToConstant: 200).isActive = true
 	}
 }

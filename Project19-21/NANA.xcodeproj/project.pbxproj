@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C12BB2426B243D800AB621A /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C12BB2326B243D800AB621A /* UILabel+Ext.swift */; };
 		2C31342A26ADCA9C0053189B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31342926ADCA9C0053189B /* AppDelegate.swift */; };
 		2C31342C26ADCA9C0053189B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31342B26ADCA9C0053189B /* SceneDelegate.swift */; };
 		2C31342E26ADCA9C0053189B /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C31342D26ADCA9C0053189B /* ListVC.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C12BB2326B243D800AB621A /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		2C31342626ADCA9C0053189B /* NANA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NANA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C31342926ADCA9C0053189B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C31342B26ADCA9C0053189B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				2C31344C26ADDBBB0053189B /* UIView+Ext.swift */,
 				2C31344E26ADDC9B0053189B /* UIViewController+Ext.swift */,
+				2C12BB2326B243D800AB621A /* UILabel+Ext.swift */,
 				2C31345A26AE07720053189B /* Bundle+Ext.swift */,
 				2C31346426AF0F4F0053189B /* Date+Ext.swift */,
 			);
@@ -267,6 +270,7 @@
 				2C31345426ADE02C0053189B /* Note.swift in Sources */,
 				2C31344D26ADDBBB0053189B /* UIView+Ext.swift in Sources */,
 				2C31342C26ADCA9C0053189B /* SceneDelegate.swift in Sources */,
+				2C12BB2426B243D800AB621A /* UILabel+Ext.swift in Sources */,
 				2C31344F26ADDC9B0053189B /* UIViewController+Ext.swift in Sources */,
 				2C31344126ADCD160053189B /* Constants.swift in Sources */,
 				2C31346026AE1C7E0053189B /* NAError.swift in Sources */,
