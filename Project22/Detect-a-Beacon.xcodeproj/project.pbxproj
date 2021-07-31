@@ -13,6 +13,7 @@
 		2C159AC126B08228006B2111 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C159AC026B08228006B2111 /* Assets.xcassets */; };
 		2C159AC426B08228006B2111 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C159AC226B08228006B2111 /* LaunchScreen.storyboard */; };
 		2C292EA626B4AA65005921EF /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C292EA526B4AA65005921EF /* UIViewController+Ext.swift */; };
+		2C292EAA26B4CD2B005921EF /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C292EA926B4CD2B005921EF /* Beacon.swift */; };
 		2CDF9FBE26B1B7DF00BF99F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDF9FBD26B1B7DF00BF99F0 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		2C159AC326B08228006B2111 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C159AC526B08228006B2111 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C292EA526B4AA65005921EF /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		2C292EA926B4CD2B005921EF /* Beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		2CDF9FBD26B1B7DF00BF99F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,7 @@
 		2C159AB626B08225006B2111 /* Detect-a-Beacon */ = {
 			isa = PBXGroup;
 			children = (
+				2C292EAB26B4CD32005921EF /* Model */,
 				2C292EA826B4AA85005921EF /* Screens */,
 				2C292EA726B4AA79005921EF /* Extensions */,
 				2CDF9FBC26B1B7D400BF99F0 /* Utilities */,
@@ -92,6 +95,14 @@
 				2C159ABB26B08225006B2111 /* BeaconVC.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		2C292EAB26B4CD32005921EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C292EA926B4CD2B005921EF /* Beacon.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2CDF9FBC26B1B7D400BF99F0 /* Utilities */ = {
@@ -176,6 +187,7 @@
 				2C292EA626B4AA65005921EF /* UIViewController+Ext.swift in Sources */,
 				2C159ABA26B08225006B2111 /* SceneDelegate.swift in Sources */,
 				2CDF9FBE26B1B7DF00BF99F0 /* Constants.swift in Sources */,
+				2C292EAA26B4CD2B005921EF /* Beacon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
