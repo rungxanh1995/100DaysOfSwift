@@ -27,26 +27,35 @@ enum Display {
 
 
 enum Asset {
-	static let penguin			= "penguin"
-	static let background		= "sliceBackground"
-	static let bombContainer	= "bombContainer"
-	static let bomb				= "sliceBomb"
-	static let life				= "sliceLife"
 	
-	static let sliceFuse		= "sliceFuse"
-	static let sliceHitBomb 	= "sliceHitBomb"
-	static let sliceHitEnemy	= "sliceHitEnemy"
+	enum Name {
+		static let penguin			= "penguin"
+		static let background		= "sliceBackground"
+		static let bombContainer	= "bombContainer"
+		static let bomb				= "sliceBomb"
+		static let life				= "sliceLife"
+		static let lifeGone			= "sliceLifeGone"
+		
+		static let sliceFuse		= "sliceFuse"
+		static let sliceHitBomb 	= "sliceHitBomb"
+		static let sliceHitEnemy	= "sliceHitEnemy"
+	}
 	
-	static let swoosh1			= "swoosh1.caf"
-	static let swoosh2			= "swoosh2.caf"
-	static let swoosh3			= "swoosh3.caf"
-	static let launch			= "launch.caf"
-	static let bombFuse			= "sliceBombFuse.caf"
+	enum Sound {
+		static let swoosh1			= "swoosh1.caf"
+		static let swoosh2			= "swoosh2.caf"
+		static let swoosh3			= "swoosh3.caf"
+		static let launch			= "launch.caf"
+		static let whack			= "whack.caf"
+		static let explosion		= "explosion.caf"
+		static let wrong			= "wrong.caf"
+		static let bombFuse			= "sliceBombFuse.caf"
+	}
 }
 
 
 enum LabelNode {
-	static let score			= SKLabelNode(fontNamed: "Chalkduster")
+	static let chalkdusterLabel		= SKLabelNode(fontNamed: "Chalkduster")
 }
 
 
@@ -55,4 +64,10 @@ enum TouchPoint {
 	static let maximum			= 12
 }
 
+
+enum GraphicAction {
+	static let scaleOut			= SKAction.scale(to: 0.001, duration: 0.2)
+	static let fadeOut			= SKAction.fadeOut(withDuration: 0.2)
+	static let zoomOut			= SKAction.group([scaleOut, fadeOut])	// performed simultaneously
+}
 

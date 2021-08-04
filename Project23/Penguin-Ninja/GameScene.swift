@@ -13,10 +13,7 @@ class GameScene: SKScene {
 	// MARK: Properties
 	
 	// Graphics
-	private var gameScore: SKLabelNode!
-	private var score = 0 {
-		didSet { gameScore.text = "Score: \(score)" }
-	}
+	private var gameScore:			SKLabelNode!
 	
 	private var activeEnemies		= [SKSpriteNode]()
 	
@@ -32,7 +29,13 @@ class GameScene: SKScene {
 	
 	private var bombSoundEffect: AVAudioPlayer?
 	
-	// For tossing logic
+	// For logic
+	private var isGameEnded			= false
+	
+	private var score = 0 {
+		didSet { gameScore.text = "Score: \(score)" }
+	}
+	
 	private var enemyScreenTime		= 0.9
 	private var chainDelay			= 3.0	// for chain + fastChain cases
 	private var sequence			= SequenceType.initialPattern
@@ -70,8 +73,12 @@ class GameScene: SKScene {
 	}
 	
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+		if isGameEnded { return }
+		
 		addSlicePoints(with: touches)
-		if !isSwooshSoundActive { playSwooshSound() }
+		if !(isSwooshSoundActive) { playSwooshSound() }
+		
+		didSliceEnemies(under: touches)
 	}
 	
 	
@@ -83,7 +90,7 @@ class GameScene: SKScene {
 	override func update(_ currentTime: TimeInterval) {
 		countBombsToStopSound()
 		
-		if activeEnemies.count > 0	{ removeEnemyWhenOffScreen(distance: 160) }
+		if activeEnemies.count > 0	{ enemyDidGoOffscreen(distance: 160) }
 		else						{ queueUpNextSequenceToTossEnemies() }
     }
 }
@@ -105,19 +112,19 @@ extension GameScene {
 			// bomb code goes here
 			// 1
 			enemy				= SKSpriteNode() // act as container of a bomb image + fuse emitter
-			enemy.name			= Asset.bombContainer
+			enemy.name			= Asset.Name.bombContainer
 			enemy.zPosition		= 1
 			
 			// 2
-			let bombImage		= SKSpriteNode(imageNamed: Asset.bomb)
-			bombImage.name		= "bomb"
+			let bombImage		= SKSpriteNode(imageNamed: Asset.Name.bomb)
+			bombImage.name		= Asset.Name.bomb
 			enemy.addChild(bombImage)
 			
 			// 3
 			if bombSoundEffect != nil { fadeOutBombSound() }
 			
 			// 4
-			if let soundPath	= Bundle.main.getPath(of: Asset.bombFuse) {
+			if let soundPath	= Bundle.main.getPath(of: Asset.Sound.bombFuse) {
 				if let sound	= try? AVAudioPlayer(contentsOf: soundPath) {
 					bombSoundEffect = sound
 					sound.play()
@@ -125,15 +132,15 @@ extension GameScene {
 			}
 			
 			// 5
-			if let fuse			= SKEmitterNode(fileNamed: Asset.sliceFuse) {
+			if let fuse			= SKEmitterNode(fileNamed: Asset.Name.sliceFuse) {
 				fuse.position	= CGPoint(x: 76, y: 64)
 				enemy.addChild(fuse)
 			}
 		} else {
-			enemy				= SKSpriteNode(imageNamed: Asset.penguin)
-			enemy.name			= Asset.penguin
+			enemy				= SKSpriteNode(imageNamed: Asset.Name.penguin)
+			enemy.name			= Asset.Name.penguin
 			enemy.zPosition		= 0
-			run(SKAction.playSoundFileNamed(Asset.launch, waitForCompletion: false))
+			run(SKAction.playSoundFileNamed(Asset.Sound.launch, waitForCompletion: false))
 
 		}
 		
@@ -164,6 +171,7 @@ extension GameScene {
 	
 	
 	final func tossEnemies() {
+		if isGameEnded { return }
 		
 		enemyScreenTime		*= 0.99
 		chainDelay			*= 0.99
@@ -213,24 +221,107 @@ extension GameScene {
 	}
 	
 	
-	private func removeEnemyWhenOffScreen(distance: CGFloat) {
-		for (index, node) in activeEnemies.enumerated().reversed()
-		where (node.position.x < Display.leftEdge - distance)
-			|| (node.position.x > Display.rightEdge + distance)
-			|| (node.position.y < Display.bottomEdge - distance)
-		{
-			node.removeFromParent()
-			activeEnemies.remove(at: index)
-		}
-	}
-	
-	
 	private func queueUpNextSequenceToTossEnemies() {
 		if !(nextSequenceQueued) {
 			DispatchQueue.main.asyncAfter(deadline: .now() + enemyScreenTime) { [weak self] in self?.tossEnemies() }
 			
 			nextSequenceQueued = true
 		}
+	}
+	
+	
+	private func enemyDidGoOffscreen(distance: CGFloat) {
+		
+		for (index, node) in activeEnemies.enumerated().reversed()
+		where (node.position.x < Display.leftEdge - distance)
+			|| (node.position.x > Display.rightEdge + distance)
+			|| (node.position.y < Display.bottomEdge - distance)
+		{
+			if node.name == Asset.Name.penguin { subtractLife() }
+			
+			node.name = nil
+			node.removeAllActions()
+			node.removeFromParent()
+			activeEnemies.remove(at: index)
+		}
+		
+	}
+	
+	
+	final func didSliceEnemies(under touches: Set<UITouch>) {
+		
+		guard let touch = touches.first else { return }
+		let location	= touch.location(in: self)
+		let nodesAtTap	= nodes(at: location)
+		
+		for case let node as SKSpriteNode in nodesAtTap {
+			if node.name == Asset.Name.penguin	{
+				score += 1
+				explodeEnemy(at: node)
+			}
+			else if node.name == Asset.Name.bomb {
+				guard let bombContainer = node.parent as? SKSpriteNode else { continue }
+				explodeEnemy(at: bombContainer)
+				
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+					self?.endGame(triggeredByBomb: true)
+				}
+			}
+		}
+	}
+	
+	
+	final func explodeEnemy(at node: SKSpriteNode) {
+		
+		let emitterFileName		= (node.name == Asset.Name.penguin) ? Asset.Name.sliceHitEnemy : Asset.Name.sliceHitBomb
+		if let emitter			= SKEmitterNode(fileNamed: emitterFileName) {
+			emitter.position	= node.position
+			addChild(emitter)
+			DispatchQueue.main.asyncAfter(deadline: .now() + 2) { emitter.removeFromParent() }
+		}
+		
+		let removalSequence		= SKAction.sequence([GraphicAction.zoomOut, .removeFromParent()])
+		node.run(removalSequence)
+
+		if let i				= activeEnemies.firstIndex(of: node) { activeEnemies.remove(at: i) }
+		
+		let soundFileName		= (node.name == Asset.Name.penguin) ? Asset.Sound.whack : Asset.Sound.explosion
+		let sound				= SKAction.playSoundFileNamed(soundFileName, waitForCompletion: false)
+		run(sound)
+		
+		node.name				= nil
+	}
+	
+	
+	final func subtractLife() {
+		numLives				-= 1
+
+		var lifeImage: SKSpriteNode
+		if numLives == 2		{ lifeImage = livesImages[0] }
+		else  if numLives == 1	{ lifeImage = livesImages[1] }
+		else					{ lifeImage = livesImages[2]; endGame(triggeredByBomb: false) }
+		
+		lifeImage.texture		= SKTexture(imageNamed: Asset.Name.lifeGone)
+		lifeImage.scale(to: CGSize(width: 1.3, height: 1.3))
+		lifeImage.run(SKAction.scale(to: 1, duration: 0.2))
+		
+		run(SKAction.playSoundFileNamed(Asset.Sound.wrong, waitForCompletion: false))
+	}
+	
+	final func endGame(triggeredByBomb: Bool) {
+		if isGameEnded { return }
+
+		if triggeredByBomb {
+			livesImages.forEach { lifeImage in
+				lifeImage.texture = SKTexture(imageNamed: Asset.Name.lifeGone)
+			}
+		}
+		
+		configureGameOverLabel() // challenge 3
+		fadeOutBombSound()
+		isGameEnded					= true
+		physicsWorld.speed			= 0
+		isUserInteractionEnabled	= false
 	}
 }
 
@@ -254,22 +345,34 @@ extension GameScene {
 	
 	
 	final func configureBackground() {
-		let background				= SKSpriteNode(imageNamed: Asset.background)
-		background.position			= CGPoint(x: Display.width / 2, y: Display.height / 2)
-		background.zPosition		= -1
-		background.blendMode		= .replace
+		let background						= SKSpriteNode(imageNamed: Asset.Name.background)
+		background.position					= CGPoint(x: Display.width / 2, y: Display.height / 2)
+		background.zPosition				= -1
+		background.blendMode				= .replace
 		addChild(background)
 	}
 	
 	
 	final func configureScore() {
-		gameScore					= LabelNode.score
-		gameScore.fontSize			= 40
-		gameScore.position			= CGPoint(x: Display.leftEdge + 8, y: Display.bottomEdge + 8)
-		gameScore.horizontalAlignmentMode = .left
+		gameScore							= SKLabelNode(fontNamed: "Chalkduster")
+		gameScore.fontSize					= 40
+		gameScore.position					= CGPoint(x: Display.leftEdge + 8, y: Display.bottomEdge + 8)
+		gameScore.horizontalAlignmentMode 	= .left
 		addChild(gameScore)
 		
 		score = 0
+	}
+	
+	
+	// challenge 3
+	final func configureGameOverLabel() {
+		let gameOver						= SKLabelNode(fontNamed: "Chalkduster")
+		gameOver.fontSize					= 60
+		gameOver.text						= "GAME OVER!"
+		gameOver.position					= CGPoint(x: Display.width / 2, y: Display.height / 2)
+		gameOver.zPosition					= 999
+		gameOver.horizontalAlignmentMode	= .center
+		addChild(gameOver)
 	}
 
 	
@@ -290,9 +393,9 @@ extension GameScene {
 	
 	
 	final func fadeOutActiveSlice() {
-		let fadeOut = SKAction.fadeOut(withDuration: 0.25)
-		activeSliceBackground.run(fadeOut)
-		activeSliceForeground.run(fadeOut)
+		
+		activeSliceBackground.run(GraphicAction.fadeOut)
+		activeSliceForeground.run(GraphicAction.fadeOut)
 	}
 	
 	
@@ -307,8 +410,8 @@ extension GameScene {
 	final func redrawActiveSlice() {
 		// back out if not enough touch points to draw a line
 		if activeSlicePoints.count < TouchPoint.minimum {
-			activeSliceBackground.path = nil
-			activeSliceForeground.path = nil
+			activeSliceBackground.path 		= nil
+			activeSliceForeground.path 		= nil
 			return
 		}
 		
@@ -321,15 +424,15 @@ extension GameScene {
 		
 		for i in 1..<activeSlicePoints.count { path.addLine(to: activeSlicePoints[i]) }
 		
-		activeSliceBackground.path = path.cgPath
-		activeSliceForeground.path = path.cgPath
+		activeSliceBackground.path 			= path.cgPath
+		activeSliceForeground.path 			= path.cgPath
 	}
 	
 	
 	final func playSwooshSound() {
 		isSwooshSoundActive = true
 		
-		let soundNames		= [Asset.swoosh1, Asset.swoosh2, Asset.swoosh3]
+		let soundNames		= [Asset.Sound.swoosh1, Asset.Sound.swoosh2, Asset.Sound.swoosh3]
 		let sound			= SKAction.playSoundFileNamed(soundNames.randomElement()!, waitForCompletion: isSwooshSoundActive)
 		run(sound) { [weak self] in self?.isSwooshSoundActive = false }
 	}
@@ -342,7 +445,7 @@ extension GameScene {
 	
 	final func countBombsToStopSound() {
 		var bombCount = 0
-		for node in activeEnemies where node.name == Asset.bombContainer { bombCount += 1; break}
+		for node in activeEnemies where node.name == Asset.Name.bombContainer { bombCount += 1; break}
 		if bombCount == 0 { fadeOutBombSound() }
 	}
 	
@@ -353,7 +456,7 @@ extension GameScene {
 		let nodeSize: CGFloat		= 70
 		
 		for i in 0..<numLives {
-			let lifeNode			= SKSpriteNode(imageNamed: Asset.life)
+			let lifeNode			= SKSpriteNode(imageNamed: Asset.Name.life)
 			lifeNode.position		= CGPoint(x: startXPoint - (CGFloat(i) * nodeSize), y: Display.topEdge - 48)
 			addChild(lifeNode)
 			
