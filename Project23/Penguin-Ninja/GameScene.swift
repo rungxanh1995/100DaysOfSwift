@@ -136,12 +136,17 @@ extension GameScene {
 				fuse.position	= CGPoint(x: 76, y: 64)
 				enemy.addChild(fuse)
 			}
+		} else if enemyType == 6 {
+			// challenge 2
+			enemy				= SKSpriteNode(imageNamed: Asset.Name.penguinRed)
+			enemy.name			= Asset.Name.penguinRed
+			enemy.zPosition		= 0
+			run(SKAction.playSoundFileNamed(Asset.Sound.launch, waitForCompletion: false))
 		} else {
 			enemy				= SKSpriteNode(imageNamed: Asset.Name.penguin)
 			enemy.name			= Asset.Name.penguin
 			enemy.zPosition		= 0
 			run(SKAction.playSoundFileNamed(Asset.Sound.launch, waitForCompletion: false))
-
 		}
 		
 		// position code goes here
@@ -162,7 +167,12 @@ extension GameScene {
 		let randAngularVelocity = CGFloat.random(in: -3...3)
 		
 		// 4
-		configurePhysicsBody(for: enemy, radius: 64, xVelocity: randXVelocity * 40, yVelocity: randYVelocity * 40, angularVelocity: randAngularVelocity, bitMask: 0)
+		// challenge 2
+		if enemyType == 6 {
+			configurePhysicsBody(for: enemy, radius: 64, xVelocity: randXVelocity * 60, yVelocity: randYVelocity * 40, angularVelocity: randAngularVelocity, bitMask: 0)
+		} else {
+			configurePhysicsBody(for: enemy, radius: 64, xVelocity: randXVelocity * 40, yVelocity: randYVelocity * 40, angularVelocity: randAngularVelocity, bitMask: 0)
+		}
 		
 		// 5
 		addChild(enemy)
@@ -237,7 +247,7 @@ extension GameScene {
 			|| (node.position.x > Display.rightEdge + distance)
 			|| (node.position.y < Display.bottomEdge - distance)
 		{
-			if node.name == Asset.Name.penguin { subtractLife() }
+			if node.name == Asset.Name.penguin || node.name == Asset.Name.penguinRed { subtractLife() }
 			
 			node.name = nil
 			node.removeAllActions()
@@ -259,6 +269,11 @@ extension GameScene {
 				score += 1
 				explodeEnemy(at: node)
 			}
+			else if node.name == Asset.Name.penguinRed {
+				// challenge 2
+				score += 5
+				explodeEnemy(at: node)
+			}
 			else if node.name == Asset.Name.bomb {
 				guard let bombContainer = node.parent as? SKSpriteNode else { continue }
 				explodeEnemy(at: bombContainer)
@@ -273,7 +288,7 @@ extension GameScene {
 	
 	final func explodeEnemy(at node: SKSpriteNode) {
 		
-		let emitterFileName		= (node.name == Asset.Name.penguin) ? Asset.Name.sliceHitEnemy : Asset.Name.sliceHitBomb
+		let emitterFileName		= (node.name == Asset.Name.penguin || node.name == Asset.Name.penguinRed) ? Asset.Name.sliceHitEnemy : Asset.Name.sliceHitBomb
 		if let emitter			= SKEmitterNode(fileNamed: emitterFileName) {
 			emitter.position	= node.position
 			addChild(emitter)
@@ -285,7 +300,7 @@ extension GameScene {
 
 		if let i				= activeEnemies.firstIndex(of: node) { activeEnemies.remove(at: i) }
 		
-		let soundFileName		= (node.name == Asset.Name.penguin) ? Asset.Sound.whack : Asset.Sound.explosion
+		let soundFileName		= (node.name == Asset.Name.penguin || node.name == Asset.Name.penguinRed) ? Asset.Sound.whack : Asset.Sound.explosion
 		let sound				= SKAction.playSoundFileNamed(soundFileName, waitForCompletion: false)
 		run(sound)
 		

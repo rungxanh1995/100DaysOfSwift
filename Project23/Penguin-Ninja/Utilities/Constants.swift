@@ -30,6 +30,7 @@ enum Asset {
 	
 	enum Name {
 		static let penguin			= "penguin"
+		static let penguinRed		= "penguinRed"	// challenge 2
 		static let background		= "sliceBackground"
 		static let bombContainer	= "bombContainer"
 		static let bomb				= "sliceBomb"
