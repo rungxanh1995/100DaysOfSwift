@@ -8,9 +8,7 @@
 import UIKit
 
 class SSImageView: UIImageView {
-	
-	private let placeholderImage	= Image.avatarPlaceholder
-	
+		
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		configure()
@@ -23,7 +21,6 @@ class SSImageView: UIImageView {
 	private func configure() {
 		layer.cornerRadius 	= 10
 		clipsToBounds 		= true
-		image 				= placeholderImage
 		translatesAutoresizingMaskIntoConstraints = false
 	}
 }

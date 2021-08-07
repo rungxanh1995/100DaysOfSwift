@@ -48,6 +48,7 @@ extension SelfieShareVC: UICollectionViewDataSource {
 }
 
 
+// MARK: Add & Send Pictures
 extension SelfieShareVC: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 	
 	final func importPicture(via action: UIAction, using type: UIImagePickerController.SourceType) {
