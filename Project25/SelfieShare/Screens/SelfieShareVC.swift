@@ -199,7 +199,7 @@ extension SelfieShareVC: UICollectionViewDelegate {
 		
 		var actions = [UIAction]()
 		#if targetEnvironment(simulator)
-		actions		= [libraryAction]
+		actions		= [library]
 		#else
 		actions		= [camera, library]
 		#endif
