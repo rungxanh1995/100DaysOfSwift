@@ -9,7 +9,7 @@ import UIKit
 
 class SSImageView: UIImageView {
 	
-	private let placeholderImage	= Images.avatarPlaceholder
+	private let placeholderImage	= Image.avatarPlaceholder
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)

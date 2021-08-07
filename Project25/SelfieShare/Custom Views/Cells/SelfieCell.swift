@@ -26,7 +26,7 @@ class SelfieCell: UICollectionViewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 //		selfieNameLabel.text		= nil
-		selfieImageView.image		= Images.avatarPlaceholder
+		selfieImageView.image		= Image.avatarPlaceholder
 	}
 	
 	

@@ -7,9 +7,15 @@
 
 import UIKit
 
-enum Images {
+enum Image {
 	static let avatarPlaceholder		= UIImage(named: "avatar-placeholder")
+	static let add						= UIImage(systemName: "plus")
 	static let connection				= UIImage(systemName: "dot.radiowaves.left.and.right")
+	static let host						= UIImage(systemName: "antenna.radiowaves.left.and.right")
+	static let join						= UIImage(systemName: "personalhotspot")
+	static let stop						= UIImage(systemName: "nosign")
+	static let camera					= UIImage(systemName: "camera")
+	static let photoLibrary				= UIImage(systemName: "photo.on.rectangle.angled")
 }
 
 

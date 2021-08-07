@@ -50,9 +50,9 @@ extension SelfieShareVC: UICollectionViewDataSource {
 
 extension SelfieShareVC: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 	
-	@objc
-	final func importPicture() {
+	final func importPicture(via action: UIAction, using type: UIImagePickerController.SourceType) {
 		let picker				= UIImagePickerController()
+		picker.sourceType		= type
 		picker.allowsEditing	= true
 		picker.delegate			= self
 		present(picker, animated: true)
@@ -101,24 +101,19 @@ extension SelfieShareVC: MCSessionDelegate {
 	}
 	
 	
-	@objc
-	final func showConnectionPrompt() {
-		let ac = UIAlertController(title: "Connect to others", message: nil, preferredStyle: .alert)
-		ac.addAction(UIAlertAction(title: "Host a session", style: .default, handler: startHosting))
-		ac.addAction(UIAlertAction(title: "Join a session", style: .default, handler: joinSession))
-		ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-		present(ac, animated: true)
-	}
-	
-	
-	final func startHosting(_ action: UIAlertAction) {
+	final func startHosting(via action: UIAction) {
 		guard let mcSession = mcSession else { return }
 		mcAdAssistant		= MCAdvertiserAssistant(serviceType: MCConnectivity.serviceID, discoveryInfo: nil, session: mcSession)
 		mcAdAssistant?.start()
 	}
 	
 	
-	final func joinSession(_ action: UIAlertAction) {
+	final func stopHosting(via action: UIAction) {
+		mcAdAssistant?.stop()
+	}
+	
+	
+	final func joinSession(via action: UIAction) {
 		guard let mcSession = mcSession else { return }
 		let mcBrowser		= MCBrowserViewController(serviceType: MCConnectivity.serviceID, session: mcSession)
 		mcBrowser.delegate	= self
@@ -170,12 +165,45 @@ extension SelfieShareVC: UICollectionViewDelegate {
 		view.backgroundColor	= .systemBackground
 		title					= Bundle.main.displayName
 		
-		let connectButton		= UIBarButtonItem(image: Images.connection, style: .plain, target: self, action: #selector(showConnectionPrompt))
-		let cameraButton		= UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
 		let spacer				= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		
-		setToolbarItems([connectButton, spacer, cameraButton], animated: true)
+		setToolbarItems([configureConnectButton(), spacer, configureCameraButton()], animated: true)
 		navigationController?.isToolbarHidden = false
+	}
+	
+	
+	final func configureConnectButton() -> UIBarButtonItem {
+		
+		let host	= UIAction(title: "Host Session", image: Image.host) { [weak self] (action) in
+			self?.startHosting(via: action)
+		}
+		
+		let join	= UIAction(title: "Join Session", image: Image.join) { [weak self] (action) in self?.joinSession(via: action)
+		}
+		
+		let stop	= UIAction(title: "Stop Session", image: Image.stop, attributes: .destructive) { [weak self] action in self?.stopHosting(via: action)
+		}
+		
+		let menu	= UIMenu(title: "Multipeer Connectivity", image: nil, identifier: nil, options: [], children: [host, join, stop])
+		return UIBarButtonItem(title: nil, image: Image.connection, primaryAction: nil, menu: menu)
+	}
+	
+	
+	final func configureCameraButton() -> UIBarButtonItem {
+		
+		let camera	= UIAction(title: "From Camera", image: Image.camera, handler: { [weak self] (action) in self?.importPicture(via: action, using: .camera)
+		})
+
+		let library	= UIAction(title: "From Photo Library", image: Image.photoLibrary, handler: { [weak self] (action) in self?.importPicture(via: action, using: .photoLibrary)
+		})
+		
+		var actions = [UIAction]()
+		#if targetEnvironment(simulator)
+		actions		= [libraryAction]
+		#else
+		actions		= [camera, library]
+		#endif
+		let menu	= UIMenu(title: "Photo Source", image: nil, identifier: nil, options: [], children: actions)
+		return UIBarButtonItem(title: nil, image: Image.add, primaryAction: nil, menu: menu)
 	}
 	
 	
