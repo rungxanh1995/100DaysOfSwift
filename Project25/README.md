@@ -3,7 +3,7 @@
 SelfieShare is an app that lets you and your peers join a peer-to-peer session to share photos and text messages (imagine a walkie-talkie-style convo 🗣🎙).
 
 ## Concepts Utilized
-* `Multipeer Connectivity` and its subclasses
+* `Multipeer Connectivity`
 * `UICollectionView`
 * `UIMenu`
 * Programmatic `AutoLayout`
