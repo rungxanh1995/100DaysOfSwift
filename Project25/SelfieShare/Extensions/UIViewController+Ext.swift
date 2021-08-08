@@ -23,7 +23,10 @@ extension UIViewController {
 	// challenge 3
 	func updateNavBarLeftItem(with item: UIBarButtonItem?) {
 		DispatchQueue.main.async { [weak self] in
-			guard let self = self, let item = item else { return }
+			guard let self = self, let item = item else {
+				self?.navigationItem.leftBarButtonItem = nil
+				return
+			}
 			self.navigationItem.leftBarButtonItem = item
 		}
 	}

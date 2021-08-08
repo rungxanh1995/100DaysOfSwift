@@ -192,20 +192,20 @@ extension SelfieShareVC: MCBrowserViewControllerDelegate {
 		switch state {
 		case .connected:
 			print("Connected: \(peerID.displayName)")
-			updateNavBarForConnected(using: .connected, peerID: peerID) // challenge 3
+			updateNavBarForConnected() // challenge 3
 			
 		case .connecting:
 			print("Connecting: \(peerID.displayName)")
-			updateNavBarLeftItem(with: nil) // challenge 3
+			updateNavBarForConnected() // challenge 3
 			
 		case .notConnected:
 			print("Not Connected: \(peerID.displayName)")
 			presentAlertOnMainThread(title: "Disconnected", message: "\(peerID.displayName) has disconnected from the share session", buttonTitle: "Ok") // challenge 1
-			updateNavBarLeftItem(with: nil) // challenge 3
+			updateNavBarForConnected() // challenge 3
 			
 		@unknown default:
 			print("Unknown State Received: \(peerID.displayName)")
-			updateNavBarLeftItem(with: nil) // challenge 3
+			updateNavBarForConnected() // challenge 3
 		}
 	}
 }
@@ -300,21 +300,24 @@ extension SelfieShareVC: UICollectionViewDelegate {
 	
 	
 	// challenge 3
-	private func updateNavBarForConnected(using state: MCSessionState, peerID: MCPeerID) {
+	#warning("Don't add a guard check on MCSessionState otherwise there's a bug that removes the button regardless of how many devices still connected to the session")
+	private func updateNavBarForConnected() {
 		guard
 			let mcSession = mcSession,
-			state == .connected,
 			mcSession.connectedPeers.isEmpty == false
-		else { return }
+		else {
+			updateNavBarLeftItem(with: nil)
+			return
+		}
 		
 		var connectedDeviceList: [UIAction] = []
 		mcSession.connectedPeers.forEach { device in
 			let action = UIAction(title: device.displayName, image: Image.iPhone) { (_) in }
 			connectedDeviceList.append(action)
 			
-		let connectedMenu = UIMenu(title: "Connected Device", image: nil, identifier: nil, options: [], children: connectedDeviceList)
+		let connectedMenu = UIMenu(title: "Connected Devices", image: nil, identifier: nil, options: [], children: connectedDeviceList)
 			
-		let connectedDeviceItem = UIBarButtonItem(title: "Connected Device", image: Image.connected, primaryAction: nil, menu: connectedMenu)
+		let connectedDeviceItem = UIBarButtonItem(title: "Connected Devices", image: Image.connected, primaryAction: nil, menu: connectedMenu)
 		updateNavBarLeftItem(with: connectedDeviceItem)
 		}
 	}
