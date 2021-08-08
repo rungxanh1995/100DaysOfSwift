@@ -17,9 +17,9 @@ class SelfieShareVC: UIViewController {
 	private var images					= [UIImage]()
 	
 	// For broadcasting
-	var peerID						: MCPeerID?
-	var mcSession						: MCSession?
-	var mcAdAssistant					: MCAdvertiserAssistant?
+	var peerID							: MCPeerID!
+	var mcSession						: MCSession!
+	var mcAdAssistant					: MCNearbyServiceAdvertiser!
 	
 	// MARK: Life Cycle
 	override func viewDidLoad() {
@@ -93,32 +93,48 @@ extension SelfieShareVC: UINavigationControllerDelegate, UIImagePickerController
 
 
 // MARK: Broadcasting
-extension SelfieShareVC: MCSessionDelegate {
+extension SelfieShareVC: MCSessionDelegate, MCNearbyServiceAdvertiserDelegate {
 	
 	final func configureMultipeerConnection() {
-		peerID				= MCPeerID(displayName: UIDevice.current.name)
-		mcSession			= MCSession(peer: peerID!, securityIdentity: nil, encryptionPreference: .required)
-		mcSession?.delegate	= self
+		peerID					= MCPeerID(displayName: UIDevice.current.name)
+		mcSession				= MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+		mcSession?.delegate		= self
 	}
 	
 	
 	final func startHosting(via action: UIAction) {
-		guard let mcSession = mcSession else { return }
-		mcAdAssistant		= MCAdvertiserAssistant(serviceType: MCConnectivity.serviceID, discoveryInfo: nil, session: mcSession)
-		mcAdAssistant?.start()
+		guard mcSession			!= nil else { return }
+		mcAdAssistant			= MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: MCConnectivity.serviceID)
+		mcAdAssistant?.delegate	= self
+		mcAdAssistant?.startAdvertisingPeer()
 	}
 	
 	
 	final func stopHosting(via action: UIAction) {
-		mcAdAssistant?.stop()
+		mcAdAssistant?.stopAdvertisingPeer()
 	}
 	
 	
 	final func joinSession(via action: UIAction) {
-		guard let mcSession = mcSession else { return }
-		let mcBrowser		= MCBrowserViewController(serviceType: MCConnectivity.serviceID, session: mcSession)
-		mcBrowser.delegate	= self
+		guard let mcSession 	= mcSession else { return }
+		let mcBrowser			= MCBrowserViewController(serviceType: MCConnectivity.serviceID, session: mcSession)
+		mcBrowser.delegate		= self
+		mcBrowser.modalPresentationStyle = .pageSheet
 		present(mcBrowser, animated: true)
+	}
+	
+	
+	#warning("IMPORTANT METHOD TO ALLOW CONNECTION ON THE HOST")
+	func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+		
+		let ac = UIAlertController(title: title, message: "\(peerID.displayName) wants to connect", preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "Allow", style: .default, handler: { [weak self] _ in
+			invitationHandler(true, self?.mcSession)
+		}))
+		ac.addAction(UIAlertAction(title: "Decline", style: .cancel, handler: { _ in
+			invitationHandler(false, nil)
+		}))
+		present(ac, animated: true)
 	}
 }
 
