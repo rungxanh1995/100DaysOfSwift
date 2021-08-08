@@ -15,6 +15,9 @@ enum Image {
 	static let stop						= UIImage(systemName: "nosign")
 	static let camera					= UIImage(systemName: "camera")
 	static let photoLibrary				= UIImage(systemName: "photo.on.rectangle.angled")
+	static let messageBubble			= UIImage(systemName: "message")
+	static let connected				= UIImage(systemName: "network")
+	static let iPhone					= UIImage(systemName: "iphone")
 }
 
 

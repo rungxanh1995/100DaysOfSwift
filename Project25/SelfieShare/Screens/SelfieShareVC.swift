@@ -18,7 +18,7 @@ class SelfieShareVC: UIViewController {
 	
 	// For broadcasting
 	var peerID							: MCPeerID!
-	var mcSession						: MCSession!
+	var mcSession						: MCSession?
 	var mcAdAssistant					: MCNearbyServiceAdvertiser!
 	
 	// MARK: Life Cycle
@@ -80,6 +80,16 @@ extension SelfieShareVC: UINavigationControllerDelegate, UIImagePickerController
 		}
 	}
 	
+	// challenge 2
+	func broadcast(with text: String) {
+		guard let mcSession = mcSession else { return }
+		if mcSession.connectedPeers.isEmpty == false {
+			let textData = Data(text.utf8)
+			do { try mcSession.send(textData, toPeers: mcSession.connectedPeers, with: .reliable) }
+			catch { presentAlertOnMainThread(title: "Send Error", message: error.localizedDescription, buttonTitle: "Ok") }
+		}
+	}
+	
 	
 	// MARK: Display Broadcasting Result
 	func updateSourceData(with image: UIImage) {
@@ -110,8 +120,9 @@ extension SelfieShareVC: MCSessionDelegate, MCNearbyServiceAdvertiserDelegate {
 	}
 	
 	
-	final func stopHosting(via action: UIAction) {
+	final func stopSession(via action: UIAction) {
 		mcAdAssistant?.stopAdvertisingPeer()
+		mcSession?.disconnect() // challenge 1
 	}
 	
 	
@@ -156,20 +167,81 @@ extension SelfieShareVC: MCBrowserViewControllerDelegate {
 	}
 	
 	// MARK: Receiving-end Method
-	func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-		// receiving end of the broadcast session
-		if let image = UIImage(data: data) { updateSourceData(with: image) }
+	// challenge 2
+	final func didReceiveMessage(using data: Data, from peerID: MCPeerID) {
+		let message = String(decoding: data, as: UTF8.self)
+		let replyAction = UIAlertAction(title: "Reply to \(peerID.displayName)", style: .default) { [weak self] action in
+			self?.presentMessagePrompt(via: action)
+		}
+		presentAlertOnMainThread(title: "Message from \(peerID.displayName)", message: message, buttonTitle: "Ok", otherActions: [replyAction])
 	}
 	
+	func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+		// receiving end of the broadcast session
+		if let image = UIImage(data: data) {
+			updateSourceData(with: image)
+			return
+		}
+		
+		didReceiveMessage(using: data, from: peerID)
+	}
+
 	
 	func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
 		// for debugging
 		switch state {
-		case .connected:	print("Connected: \(peerID.displayName)")
-		case .connecting:	print("Connecting: \(peerID.displayName)")
-		case .notConnected:	print("Not Connected: \(peerID.displayName)")
-		@unknown default:	print("Unknown State Received: \(peerID.displayName)")
+		case .connected:
+			print("Connected: \(peerID.displayName)")
+			updateNavBarForConnected(using: .connected, peerID: peerID) // challenge 3
+			
+		case .connecting:
+			print("Connecting: \(peerID.displayName)")
+			updateNavBarLeftItem(with: nil) // challenge 3
+			
+		case .notConnected:
+			print("Not Connected: \(peerID.displayName)")
+			presentAlertOnMainThread(title: "Disconnected", message: "\(peerID.displayName) has disconnected from the share session", buttonTitle: "Ok") // challenge 1
+			updateNavBarLeftItem(with: nil) // challenge 3
+			
+		@unknown default:
+			print("Unknown State Received: \(peerID.displayName)")
+			updateNavBarLeftItem(with: nil) // challenge 3
 		}
+	}
+}
+
+
+extension SelfieShareVC {
+	// challenge 2
+	
+	// to be reuse by "Text Message" option from the Add menu
+	func presentMessagePrompt(via action: UIAction) {
+		let ac = UIAlertController(title: "New Message", message: "Make sure you connected to another device using \(Bundle.main.displayName ?? "the same app"), too", preferredStyle: .alert)
+		ac.addTextField()
+		
+		let sendAction = UIAlertAction(title: "Send", style: .default, handler: { [weak self, weak ac] action in
+			guard let message = ac?.textFields?[0].text else { return }
+			self?.broadcast(with: message)
+		})
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+		
+		ac.addActions(sendAction, cancelAction)
+		present(ac, animated: true)
+	}
+	
+	// to be reuse by the "Reply" option upon receiving a message
+	func presentMessagePrompt(via action: UIAlertAction) {
+		let ac = UIAlertController(title: "New Message", message: "Make sure you connected to another device using \(Bundle.main.displayName ?? "the same app"), too", preferredStyle: .alert)
+		ac.addTextField()
+		
+		let sendAction = UIAlertAction(title: "Send", style: .default, handler: { [weak self, weak ac] action in
+			guard let message = ac?.textFields?[0].text else { return }
+			self?.broadcast(with: message)
+		})
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+		
+		ac.addActions(sendAction, cancelAction)
+		present(ac, animated: true)
 	}
 }
 
@@ -183,7 +255,7 @@ extension SelfieShareVC: UICollectionViewDelegate {
 		title					= Bundle.main.displayName
 		
 		let spacer				= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		setToolbarItems([configureConnectButton(), spacer, configureCameraButton()], animated: true)
+		setToolbarItems([configureConnectButton(), spacer, configureAddButton()], animated: true)
 		navigationController?.isToolbarHidden = false
 	}
 	
@@ -197,7 +269,7 @@ extension SelfieShareVC: UICollectionViewDelegate {
 		let join	= UIAction(title: "Join Session", image: Image.join) { [weak self] (action) in self?.joinSession(via: action)
 		}
 		
-		let stop	= UIAction(title: "Stop Session", image: Image.stop, attributes: .destructive) { [weak self] action in self?.stopHosting(via: action)
+		let stop	= UIAction(title: "Stop Session", image: Image.stop, attributes: .destructive) { [weak self] action in self?.stopSession(via: action)
 		}
 		
 		let menu	= UIMenu(title: "Multipeer Connectivity", image: nil, identifier: nil, options: [], children: [host, join, stop])
@@ -205,22 +277,46 @@ extension SelfieShareVC: UICollectionViewDelegate {
 	}
 	
 	
-	final func configureCameraButton() -> UIBarButtonItem {
+	final func configureAddButton() -> UIBarButtonItem {
 		
-		let camera	= UIAction(title: "From Camera", image: Image.camera, handler: { [weak self] (action) in self?.importPicture(via: action, using: .camera)
+		let camera	= UIAction(title: "Photos from Camera", image: Image.camera, handler: { [weak self] (action) in self?.importPicture(via: action, using: .camera)
 		})
 
-		let library	= UIAction(title: "From Photo Library", image: Image.photoLibrary, handler: { [weak self] (action) in self?.importPicture(via: action, using: .photoLibrary)
+		let library	= UIAction(title: "Photos from Library", image: Image.photoLibrary, handler: { [weak self] (action) in self?.importPicture(via: action, using: .photoLibrary)
 		})
 		
-		var actions = [UIAction]()
+		let text	= UIAction(title: "Text Message", image: Image.messageBubble) { [weak self] (action) in self?.presentMessagePrompt(via: action)
+		}
+		
+		var actions	= [UIAction]()
 		#if targetEnvironment(simulator)
-		actions		= [library]
+		actions		= [library, text]
 		#else
-		actions		= [camera, library]
+		actions		= [camera, library, text]
 		#endif
-		let menu	= UIMenu(title: "Photo Source", image: nil, identifier: nil, options: [], children: actions)
+		let menu = UIMenu(title: "Data To Send", image: nil, identifier: nil, options: [], children: actions)
 		return UIBarButtonItem(title: nil, image: Image.add, primaryAction: nil, menu: menu)
+	}
+	
+	
+	// challenge 3
+	private func updateNavBarForConnected(using state: MCSessionState, peerID: MCPeerID) {
+		guard
+			let mcSession = mcSession,
+			state == .connected,
+			mcSession.connectedPeers.isEmpty == false
+		else { return }
+		
+		var connectedDeviceList: [UIAction] = []
+		mcSession.connectedPeers.forEach { device in
+			let action = UIAction(title: device.displayName, image: Image.iPhone) { (_) in }
+			connectedDeviceList.append(action)
+			
+		let connectedMenu = UIMenu(title: "Connected Device", image: nil, identifier: nil, options: [], children: connectedDeviceList)
+			
+		let connectedDeviceItem = UIBarButtonItem(title: "Connected Device", image: Image.connected, primaryAction: nil, menu: connectedMenu)
+		updateNavBarLeftItem(with: connectedDeviceItem)
+		}
 	}
 	
 	
