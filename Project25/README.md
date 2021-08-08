@@ -10,7 +10,7 @@ SelfieShare is an app that lets you and your peers join a peer-to-peer session t
 * Functional programming for code readability & reusability
 
 ## Screenshots
-![screenshot.gif](screenshots/screenshot.gif)
+![screenshot.png](screenshots/screenshot.png)
 
 ## Acknowledgement
 SelfieShare project is coded in correspondence to Paul Hudson’s "100 Days Of Swift" challenge, [day 83](https://www.hackingwithswift.com/100/83) and [day 84](https://www.hackingwithswift.com/100/84) and [day 79](https://www.hackingwithswift.com/100/79).
