@@ -1,0 +1,400 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C2F33DA26C1A0E100941201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33D926C1A0E100941201 /* AppDelegate.swift */; };
+		2C2F33DC26C1A0E100941201 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C2F33DB26C1A0E100941201 /* GameScene.sks */; };
+		2C2F33E026C1A0E100941201 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33DF26C1A0E100941201 /* GameScene.swift */; };
+		2C2F33E226C1A0E100941201 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33E126C1A0E100941201 /* GameViewController.swift */; };
+		2C2F33E526C1A0E100941201 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2F33E326C1A0E100941201 /* Main.storyboard */; };
+		2C2F33E726C1A0E200941201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2F33E626C1A0E200941201 /* Assets.xcassets */; };
+		2C2F33F026C1A3B100941201 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C2F33EF26C1A3B100941201 /* level1.txt */; };
+		2C2F33F326C1A56000941201 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33F226C1A56000941201 /* Constants.swift */; };
+		2C2F33F526C1A91400941201 /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33F426C1A91400941201 /* Bundle+Ext.swift */; };
+		2C2F33F826C1ECBC00941201 /* SKNode+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2F33F726C1ECBC00941201 /* SKNode+Ext.swift */; };
+		2CFDC65726C2B30100891156 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CFDC65126C2B30000891156 /* level2.txt */; };
+		2CFDC65926C2B30100891156 /* level4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CFDC65326C2B30000891156 /* level4.txt */; };
+		2CFDC65A26C2B30100891156 /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CFDC65426C2B30100891156 /* level3.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2C2F33D626C1A0E100941201 /* Marble Maze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Marble Maze.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C2F33D926C1A0E100941201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2C2F33DB26C1A0E100941201 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		2C2F33DF26C1A0E100941201 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		2C2F33E126C1A0E100941201 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		2C2F33E426C1A0E100941201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2C2F33E626C1A0E200941201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2C2F33E826C1A0E200941201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C2F33EF26C1A3B100941201 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = "<group>"; };
+		2C2F33F226C1A56000941201 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2C2F33F426C1A91400941201 /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
+		2C2F33F726C1ECBC00941201 /* SKNode+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+Ext.swift"; sourceTree = "<group>"; };
+		2CFDC65126C2B30000891156 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = "<group>"; };
+		2CFDC65326C2B30000891156 /* level4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level4.txt; sourceTree = "<group>"; };
+		2CFDC65426C2B30100891156 /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level3.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C2F33D326C1A0E100941201 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C2F33CD26C1A0E100941201 = {
+			isa = PBXGroup;
+			children = (
+				2C2F33D826C1A0E100941201 /* Marble Maze */,
+				2C2F33D726C1A0E100941201 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2C2F33D726C1A0E100941201 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C2F33D626C1A0E100941201 /* Marble Maze.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C2F33D826C1A0E100941201 /* Marble Maze */ = {
+			isa = PBXGroup;
+			children = (
+				2C2F33DF26C1A0E100941201 /* GameScene.swift */,
+				2C2F33E126C1A0E100941201 /* GameViewController.swift */,
+				2C2F33F126C1A54F00941201 /* Utilities */,
+				2C2F33F626C1A92800941201 /* Extensions */,
+				2C2F33EE26C1A18400941201 /* Support Files */,
+			);
+			path = "Marble Maze";
+			sourceTree = "<group>";
+		};
+		2C2F33EE26C1A18400941201 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2CFDC65B26C2B30600891156 /* Levels */,
+				2C2F33D926C1A0E100941201 /* AppDelegate.swift */,
+				2C2F33DB26C1A0E100941201 /* GameScene.sks */,
+				2C2F33E326C1A0E100941201 /* Main.storyboard */,
+				2C2F33E626C1A0E200941201 /* Assets.xcassets */,
+				2C2F33E826C1A0E200941201 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		2C2F33F126C1A54F00941201 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2C2F33F226C1A56000941201 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2C2F33F626C1A92800941201 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2C2F33F426C1A91400941201 /* Bundle+Ext.swift */,
+				2C2F33F726C1ECBC00941201 /* SKNode+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2CFDC65B26C2B30600891156 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				2C2F33EF26C1A3B100941201 /* level1.txt */,
+				2CFDC65126C2B30000891156 /* level2.txt */,
+				2CFDC65426C2B30100891156 /* level3.txt */,
+				2CFDC65326C2B30000891156 /* level4.txt */,
+			);
+			path = Levels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C2F33D526C1A0E100941201 /* Marble Maze */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C2F33EB26C1A0E200941201 /* Build configuration list for PBXNativeTarget "Marble Maze" */;
+			buildPhases = (
+				2C2F33D226C1A0E100941201 /* Sources */,
+				2C2F33D326C1A0E100941201 /* Frameworks */,
+				2C2F33D426C1A0E100941201 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Marble Maze";
+			productName = "Marble Maze";
+			productReference = 2C2F33D626C1A0E100941201 /* Marble Maze.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C2F33CE26C1A0E100941201 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					2C2F33D526C1A0E100941201 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = 2C2F33D126C1A0E100941201 /* Build configuration list for PBXProject "Marble Maze" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2C2F33CD26C1A0E100941201;
+			productRefGroup = 2C2F33D726C1A0E100941201 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C2F33D526C1A0E100941201 /* Marble Maze */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C2F33D426C1A0E100941201 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2F33E526C1A0E100941201 /* Main.storyboard in Resources */,
+				2C2F33F026C1A3B100941201 /* level1.txt in Resources */,
+				2C2F33DC26C1A0E100941201 /* GameScene.sks in Resources */,
+				2CFDC65A26C2B30100891156 /* level3.txt in Resources */,
+				2C2F33E726C1A0E200941201 /* Assets.xcassets in Resources */,
+				2CFDC65926C2B30100891156 /* level4.txt in Resources */,
+				2CFDC65726C2B30100891156 /* level2.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C2F33D226C1A0E100941201 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C2F33E026C1A0E100941201 /* GameScene.swift in Sources */,
+				2C2F33E226C1A0E100941201 /* GameViewController.swift in Sources */,
+				2C2F33F526C1A91400941201 /* Bundle+Ext.swift in Sources */,
+				2C2F33F826C1ECBC00941201 /* SKNode+Ext.swift in Sources */,
+				2C2F33DA26C1A0E100941201 /* AppDelegate.swift in Sources */,
+				2C2F33F326C1A56000941201 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2C2F33E326C1A0E100941201 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C2F33E426C1A0E100941201 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C2F33E926C1A0E200941201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2C2F33EA26C1A0E200941201 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2C2F33EC26C1A0E200941201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8R3P49X4ZM;
+				INFOPLIST_FILE = "Marble Maze/Support Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joepham.Marble-Maze";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		2C2F33ED26C1A0E200941201 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8R3P49X4ZM;
+				INFOPLIST_FILE = "Marble Maze/Support Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joepham.Marble-Maze";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C2F33D126C1A0E100941201 /* Build configuration list for PBXProject "Marble Maze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2F33E926C1A0E200941201 /* Debug */,
+				2C2F33EA26C1A0E200941201 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C2F33EB26C1A0E200941201 /* Build configuration list for PBXNativeTarget "Marble Maze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2F33EC26C1A0E200941201 /* Debug */,
+				2C2F33ED26C1A0E200941201 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C2F33CE26C1A0E100941201 /* Project object */;
+}
