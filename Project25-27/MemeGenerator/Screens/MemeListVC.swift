@@ -33,14 +33,14 @@ extension MemeListVC: UINavigationControllerDelegate, UIImagePickerControllerDel
 	final func importPicture(via action: UIAction, using type: UIImagePickerController.SourceType) {
 		let picker				= UIImagePickerController()
 		picker.sourceType		= type
-		picker.allowsEditing	= true
+		picker.allowsEditing	= false
 		picker.delegate			= self
 		present(picker, animated: true)
 	}
 	
 	
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-		guard let image = info[.editedImage] as? UIImage else { return }
+		guard let image = info[.originalImage] as? UIImage else { return }
 		dismiss(animated: true)
 	
 		updateSourceData(with: image)
