@@ -34,14 +34,6 @@ class MemeDetailVC: UIViewController {
 		configureViewController()
 		configureImageView()
 	}
-	
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		
-		guard let moddedImage	= imageView.image else { return }
-		delegate.didReceiveImage(moddedImage)
-	}
 }
 
 
@@ -73,10 +65,10 @@ extension MemeDetailVC {
 	
 	private func makeCaptionButton() -> UIBarButtonItem {
 		let topCaption		= UIAction(title: "Top Caption", image: SFSymbol.topCaption) { [weak self] action in
-			self?.addTopCaption(via: action)
+			self?.addCaption(via: action, at: .top)
 		}
 		let bottomCaption	= UIAction(title: "Bottom Caption", image: SFSymbol.topCaption) { [weak self] action in
-			self?.addBottomCaption(via: action)
+			self?.addCaption(via: action, at: .bottom)
 		}
 		let captionMenu		= UIMenu(title: "Add Captions", image: nil, identifier: nil, options: [], children: [topCaption, bottomCaption])
 		return UIBarButtonItem(title: nil, image: SFSymbol.caption, primaryAction: nil, menu: captionMenu)
@@ -92,21 +84,13 @@ extension MemeDetailVC {
 // MARK: Logic
 extension MemeDetailVC {
 		
-	final func addTopCaption(via action: UIAction, _ caption: String? = nil) {
+	final func addCaption(via action: UIAction, _ caption: String? = nil, at position: CaptionPosition) {
 		
 		presentCaptionPrompt(via: action) { [weak self] caption in
 			if let self = self, let image = self.imageView.image, let caption = caption {
-				self.imageView.image = self.imageView.imageWithCaption(from: image, with: caption, captionPosition: .top)
-			}
-		}
-	}
-	
-	
-	final func addBottomCaption(via action: UIAction, _ caption: String? = nil) {
-				
-		presentCaptionPrompt(via: action) { [weak self] caption in
-			if let self = self, let caption = caption {
-				self.imageView.image = self.imageView.imageWithCaption(from: self.imageView.image!, with: caption, captionPosition: .bottom)
+				let moddedImage			= self.imageView.imageWithCaption(from: image, with: caption, captionPosition: position)
+				self.imageView.image	= moddedImage
+				self.delegate.didReceiveImage(moddedImage!)
 			}
 		}
 	}

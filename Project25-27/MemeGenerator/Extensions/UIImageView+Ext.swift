@@ -43,10 +43,8 @@ extension UIImageView {
 		let fontSize				= sidesLength / 30
 		
 		let attrs: [NSAttributedString.Key : Any] = [
-			.strokeWidth	: -5.0,
-			.strokeColor	: UIColor.black,
-			.foregroundColor: UIColor.systemYellow,
-			.font			: UIFont.systemFont(ofSize: fontSize),
+			.foregroundColor: UIColor.white,
+			.font			: UIFont.systemFont(ofSize: fontSize, weight: .bold),
 			.paragraphStyle	: paragraphStyle
 		]
 		
