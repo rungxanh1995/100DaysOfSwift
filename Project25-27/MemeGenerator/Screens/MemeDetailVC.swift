@@ -86,32 +86,13 @@ extension MemeDetailVC {
 		
 	final func addCaption(via action: UIAction, _ caption: String? = nil, at position: CaptionPosition) {
 		
-		presentCaptionPrompt(via: action) { [weak self] caption in
+		presentCaptionPrompt(via: action, for: position) { [weak self] caption in
 			if let self = self, let image = self.imageView.image, let caption = caption {
 				let moddedImage			= self.imageView.imageWithCaption(from: image, with: caption, captionPosition: position)
 				self.imageView.image	= moddedImage
 				self.delegate.didReceiveImage(moddedImage!)
 			}
 		}
-	}
-	
-	
-	final func presentCaptionPrompt(via action: UIAction, completed: @escaping (String?) -> Void) {
-		
-		let ac = UIAlertController(title: "New Caption", message: nil, preferredStyle: .alert)
-		ac.addTextField()
-		
-		let addAction = UIAlertAction(title: "Add", style: .default, handler: { [weak ac] action in
-			guard let caption = ac?.textFields?[0].text else { return }
-			completed(caption)
-		})
-		
-		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-			completed(nil)
-		}
-		
-		ac.addActions(addAction, cancelAction)
-		present(ac, animated: true)
 	}
 	
 	
