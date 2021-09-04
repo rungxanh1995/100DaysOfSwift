@@ -21,6 +21,7 @@
 		2CD390C526E3A6A40000FD16 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD390C326E3A6A40000FD16 /* KeychainWrapper.swift */; };
 		2CD390C626E3A6A40000FD16 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD390C426E3A6A40000FD16 /* KeychainItemAccessibility.swift */; };
 		2CD390C826E3B0700000FD16 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD390C726E3B0700000FD16 /* UIViewController+Ext.swift */; };
+		2CD390CC26E3D1280000FD16 /* UIAlertController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD390CB26E3D1280000FD16 /* UIAlertController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		2CD390C326E3A6A40000FD16 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2CD390C426E3A6A40000FD16 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		2CD390C726E3B0700000FD16 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		2CD390CB26E3D1280000FD16 /* UIAlertController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				2C03D46426E16C83001A85FE /* Bundle+Ext.swift */,
+				2CD390CB26E3D1280000FD16 /* UIAlertController+Ext.swift */,
 				2C03D46B26E1D0EE001A85FE /* UIButton+Ext.swift */,
 				2C03D46226E16C6C001A85FE /* UIView+Ext.swift */,
 				2CD390C726E3B0700000FD16 /* UIViewController+Ext.swift */,
@@ -216,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CD390CC26E3D1280000FD16 /* UIAlertController+Ext.swift in Sources */,
 				2C03D44C26E10404001A85FE /* EditorVC.swift in Sources */,
 				2C03D44826E10404001A85FE /* AppDelegate.swift in Sources */,
 				2CD390C826E3B0700000FD16 /* UIViewController+Ext.swift in Sources */,

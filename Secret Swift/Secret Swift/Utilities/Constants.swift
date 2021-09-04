@@ -10,11 +10,20 @@ import UIKit
 
 enum Keys {
 	static let secretMessage			= "SecretMessage"
+	static let password					= "Password"
+	static let isPasswordSet			= "IsPasswordSet"
 }
 
 
 enum AlertContext {
 	static let authenticateViaFaceID	= "To view locked message, unlock with Face ID."
+}
+
+
+enum SFSymbol {
+	static let lock						= UIImage(systemName: "lock")
+	static let unlock					= UIImage(systemName: "lock.open")
+	static let reset					= UIImage(systemName: "arrow.uturn.left")
 }
 
 
