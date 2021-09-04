@@ -19,6 +19,8 @@ class EditorVC: UIViewController {
 	// MARK: Life Cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		isPasswordSet = KeychainWrapper.standard.hasValue(forKey: Keys.isPasswordSet) // challenge 2
 		configureVC()
 	}
 }
@@ -37,11 +39,7 @@ extension EditorVC {
 			
 			context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: AlertContext.authenticateViaFaceID) { [weak self] success, authenticationError in
 				guard let self = self else { return }
-				if success {
-					self.unlockSecretMessage()
-				} else {
-					self.presentAlertOnMainThread(title: "Face Not Recognized", message: "Try Again", buttonTitle: "OK")
-				}
+				if success { self.unlockSecretMessage() }
 			}
 		} else {
 			unlockWithPassword() // challenge 2
@@ -58,7 +56,7 @@ extension EditorVC {
 			self.secretTextView.isHidden		= false
 			self.secretTextView.text			= KeychainWrapper.standard.string(forKey: Keys.secretMessage)
 			self.configureLockButton(isSecretHidden: false)  // challenge 1
-			self.configurePasswordButton(isSecretHidden: false) // challenge 2
+			self.configurePasswordButton(isPasswordSet: false) // challenge 2
 		}
 	}
 	
@@ -76,7 +74,7 @@ extension EditorVC {
 			self.authenticateButton.isHidden	= false
 			self.secretTextView.isHidden		= true
 			self.configureLockButton(isSecretHidden: true) // challenge 1
-			self.configurePasswordButton(isSecretHidden: true) // challenge 2
+			self.configurePasswordButton(isPasswordSet: true) // challenge 2
 		}
 	}
 }
@@ -98,7 +96,7 @@ extension EditorVC {
 	
 	
 	// challenge 2
-	final func configurePasswordButton(isSecretHidden: Bool) {
+	final func configurePasswordButton(isPasswordSet: Bool) {
 		
 		let unlock = UIAction(title: "Unlock with Password", image: SFSymbol.unlock, handler: { [weak self] _ in self?.unlockWithPassword()
 		})
@@ -106,7 +104,7 @@ extension EditorVC {
 		let newPassword	= UIAction(title: "Set New Password", image: SFSymbol.reset, handler: { [weak self] _ in self?.setNewPassword()
 		})
 		
-		let	actions	= isSecretHidden ? [unlock, newPassword] : [newPassword]
+		let	actions	= isPasswordSet ? [unlock, newPassword] : [newPassword]
 		let menu = UIMenu(title: "Password Manager", image: nil, identifier: nil, options: [], children: actions)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Password", image: nil, primaryAction: nil, menu: menu)
 	}
@@ -114,7 +112,6 @@ extension EditorVC {
 	
 	// challenge 2
 	final func unlockWithPassword() {
-		isPasswordSet = KeychainWrapper.standard.hasValue(forKey: Keys.isPasswordSet)
 		
 		if isPasswordSet {
 			presentPasswordPrompt(isFirstTime: false, title: "Enter Password", message: "Type your saved password to unlock secret messages") { [weak self] password in
@@ -150,14 +147,14 @@ extension EditorVC {
 extension EditorVC {
 	
 	final func configureVC() {
-		view.backgroundColor = .systemBackground
-		title = Bundle.main.displayName
+		view.backgroundColor	= .systemBackground
+		title					= Bundle.main.displayName
 		
 		configureSecretTextView(in: view)
 		configureNotificationObservers(in: self)
 		configureAuthenticateButton(in: view)
 		configureLockButton(isSecretHidden: secretTextView.isHidden) // challenge 1
-		configurePasswordButton(isSecretHidden: secretTextView.isHidden) // challenge 2
+		configurePasswordButton(isPasswordSet: isPasswordSet) // challenge 2
 	}
 	
 	
