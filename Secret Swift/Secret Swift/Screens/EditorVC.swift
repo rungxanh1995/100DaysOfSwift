@@ -125,6 +125,8 @@ extension EditorVC {
 					self.presentAlertOnMainThread(title: "Password Didn't Match", message: "Please try again", buttonTitle: "OK")
 				}
 			}
+		} else {
+			setNewPassword()
 		}
 	}
 	
