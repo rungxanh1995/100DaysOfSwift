@@ -73,6 +73,7 @@ extension MemeListVC: UICollectionViewDelegate {
 		let spacer				= UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		setToolbarItems([spacer, configureAddButton()], animated: true)
 		navigationController?.isToolbarHidden = false
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 	
 	

@@ -151,7 +151,8 @@ extension EditorVC {
 	final func configureVC() {
 		view.backgroundColor	= .systemBackground
 		title					= Bundle.main.displayName
-		
+		navigationController?.navigationBar.prefersLargeTitles = true
+
 		configureSecretTextView(in: view)
 		configureNotificationObservers(in: self)
 		configureAuthenticateButton(in: view)

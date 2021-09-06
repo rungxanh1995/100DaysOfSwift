@@ -22,10 +22,10 @@ extension UIImageView {
 			switch position {
 			
 			case .top:
-				drawCaption(captionString: text.uppercased(), captionPosition: .top, rendererSize: imageSize)
+				drawCaption(captionString: text, captionPosition: .top, rendererSize: imageSize)
 				
 			case .bottom:
-				drawCaption(captionString: text.uppercased(), captionPosition: .bottom, rendererSize: imageSize)
+				drawCaption(captionString: text, captionPosition: .bottom, rendererSize: imageSize)
 			}
 		}
 		
@@ -39,8 +39,8 @@ extension UIImageView {
 		paragraphStyle.alignment	= .center
 		
 		// accomodate all images sizes
-		let sidesLength				= rendererSize.width + rendererSize.height
-		let fontSize				= sidesLength / 30
+		let sidesLength		= rendererSize.width + rendererSize.height
+		let fontSize		= sidesLength / 40
 		
 		let attrs: [NSAttributedString.Key : Any] = [
 			.foregroundColor: UIColor.white,
@@ -48,9 +48,9 @@ extension UIImageView {
 			.paragraphStyle	: paragraphStyle
 		]
 		
-		let margin = 32
-		let textWidth = Int(rendererSize.width) - (margin * 2)
-		let textHeight = computeTextHeight(for: string, attributes: attrs, width: textWidth)
+		let margin			= 12
+		let textWidth		= Int(rendererSize.width) - (margin * 2)
+		let textHeight		= computeTextHeight(for: string, attributes: attrs, width: textWidth)
 		
 		var startY: Int
 		switch position {
