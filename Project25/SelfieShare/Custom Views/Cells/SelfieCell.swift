@@ -35,10 +35,10 @@ class SelfieCell: UICollectionViewCell {
 		
 		let padding: CGFloat		= 8
 		NSLayoutConstraint.activate([
-			selfieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-			selfieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-			selfieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-			selfieImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+			selfieImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+			selfieImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+			selfieImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+			selfieImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding),
 			
 //			selfieNameLabel.topAnchor.constraint(equalTo: selfieImageView.bottomAnchor, constant: 12),
 //			selfieNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
