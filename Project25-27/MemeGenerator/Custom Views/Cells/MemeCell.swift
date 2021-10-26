@@ -38,10 +38,10 @@ class MemeCell: UICollectionViewCell {
 		
 		let padding: CGFloat		= 8
 		NSLayoutConstraint.activate([
-			memeImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-			memeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-			memeImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-			memeImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
+			memeImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
+			memeImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+			memeImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+			memeImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding)
 		])
 	}
 }
